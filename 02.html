@@ -119,9 +119,61 @@
   .legend{font-size:13px;color:var(--muted);margin-top:10px}
   .legend span{margin-right:14px}
   .nav-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* ── Password Gate ── */
+#pw-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(3,0,20,0.94);
+  backdrop-filter: blur(20px);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+#pw-overlay.hidden { display: none; }
+.pw-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 48px 44px;
+  text-align: center;
+  max-width: 380px; width: 90%;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+}
+.pw-card h2 { color: #fff; font-size: 22px; font-weight: 700; margin: 0 0 8px; }
+.pw-card p { color: rgba(255,255,255,0.45); font-size: 14px; margin: 0 0 28px; }
+.pw-card input {
+  width: 100%; padding: 14px 18px; border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.07);
+  color: #fff; font-size: 18px; text-align: center;
+  letter-spacing: 4px; outline: none; box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+.pw-card input:focus { border-color: #2EA7FF; }
+.pw-card input::placeholder { color: rgba(255,255,255,0.25); letter-spacing: 2px; }
+.pw-card .pw-err { color: #ff5c72; font-size: 13px; margin-top: 12px; min-height: 18px; }
+.pw-card button {
+  margin-top: 18px; width: 100%; padding: 12px; border-radius: 12px; border: none;
+  background: linear-gradient(135deg, #2EA7FF, #9381FF);
+  color: #fff; font-size: 16px; font-weight: 600; cursor: pointer;
+  transition: opacity 0.2s;
+}
+.pw-card button:hover { opacity: 0.85; }
+
 </style>
 </head>
 <body>
+
+<!-- Password Gate -->
+<div id="pw-overlay">
+  <div class="pw-card">
+    <h2>&#x1f510; 访问验证</h2>
+    <p>请输入访问密码以查看内容</p>
+    <input type="password" id="pw-input" placeholder="输入密码" maxlength="20" autofocus>
+    <div class="pw-err" id="pw-err"></div>
+    <button onclick="verifyPassword()">确 认</button>
+  </div>
+</div>
+
 <div id="deck">
   <div id="progress" style="width: 100%;"></div>
   <div id="stage">
@@ -713,6 +765,42 @@
   <button id="fsFab" title="全屏切换" style="position:fixed;top:14px;right:16px;z-index:30;width:42px;height:42px;border-radius:50%;border:1px solid #d4dde8;background:#fff;color:#0a2540;font-size:20px;cursor:pointer;box-shadow:0 2px 8px rgba(16,42,68,.12);display:grid;place-items:center">⛶</button>
 
 <script>
+
+// ── Password Gate ──
+const PW_HASH = "819c77c2f63e6f7c3f87137c8f1f2b114bee377186ee374cc31b4a93f03ec36c";
+const PW_STORAGE_KEY = "_ppt_auth";
+
+async function sha256(msg) {
+  const buf = new TextEncoder().encode(msg);
+  const hash = await crypto.subtle.digest("SHA-256", buf);
+  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,"0")).join("");
+}
+
+async function verifyPassword() {
+  const input = document.getElementById("pw-input");
+  const err = document.getElementById("pw-err");
+  const val = input.value.trim();
+  if (!val) { err.textContent = "请输入密码"; return; }
+  const h = await sha256(val);
+  if (h === PW_HASH) {
+    sessionStorage.setItem(PW_STORAGE_KEY, "1");
+    document.getElementById("pw-overlay").classList.add("hidden");
+  } else {
+    err.textContent = "密码错误，请重试";
+    input.value = "";
+    input.focus();
+  }
+}
+
+(function initPwGate() {
+  if (sessionStorage.getItem(PW_STORAGE_KEY) === "1") {
+    document.getElementById("pw-overlay").classList.add("hidden");
+  }
+  document.getElementById("pw-input").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") verifyPassword();
+  });
+})();
+
   const track=document.getElementById('track');
   const slides=[...track.children];
   const total=slides.length;
