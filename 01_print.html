@@ -1,0 +1,1649 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>创凌通科技 × 初海联创 — 孵化器合作方案（会议讨论稿）</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #030014;
+  --bg2: #0A0E27;
+  --card-bg: rgba(255,255,255,0.04);
+  --card-border: rgba(255,255,255,0.08);
+  --blue: #2EA7FF;
+  --purple: #9381FF;
+  --green: #13DDC4;
+  --text: #ffffff;
+  --text-sub: rgba(255,255,255,0.7);
+  --text-dim: rgba(255,255,255,0.4);
+  --text-body: rgba(255,255,255,0.85);
+  --nav-bg: rgba(10,14,39,0.85);
+  --nav-btn-bg: rgba(255,255,255,0.06);
+  --nav-btn-border: rgba(255,255,255,0.12);
+  --nav-btn-color: #fff;
+  --hint-color: rgba(255,255,255,0.3);
+  --th-bg: rgba(46,167,255,0.1);
+  --td-border: rgba(255,255,255,0.06);
+  --action-border: rgba(255,255,255,0.05);
+  --bottom-bar-bg: linear-gradient(90deg, transparent 0%, rgba(46,167,255,0.4) 33%, rgba(147,129,255,0.4) 66%, transparent 100%);
+}
+
+/* ── Light theme ── */
+[data-theme="light"] {
+  --bg: #f0f2f6;
+  --bg2: #e3e7ee;
+  --card-bg: rgba(255,255,255,0.75);
+  --card-border: rgba(0,0,0,0.08);
+  --blue: #1a76d2;
+  --purple: #6e5ce7;
+  --green: #0da08e;
+  --text: #1a1a2e;
+  --text-sub: rgba(26,26,46,0.65);
+  --text-dim: rgba(26,26,46,0.36);
+  --text-body: rgba(26,26,46,0.8);
+  --nav-bg: rgba(255,255,255,0.85);
+  --nav-btn-bg: rgba(0,0,0,0.04);
+  --nav-btn-border: rgba(0,0,0,0.12);
+  --nav-btn-color: #333;
+  --hint-color: rgba(0,0,0,0.25);
+  --th-bg: rgba(26,118,210,0.08);
+  --td-border: rgba(0,0,0,0.06);
+  --action-border: rgba(0,0,0,0.06);
+  --bottom-bar-bg: linear-gradient(90deg, transparent 0%, rgba(26,118,210,0.25) 33%, rgba(110,92,231,0.25) 66%, transparent 100%);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  overflow: hidden;
+  height: 100vh;
+}
+
+#app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px 80px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+
+/* Scale wrapper */
+.slide-inner {
+  width: 1920px;
+  height: 1080px;
+  transform-origin: top left;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(var(--scale, 1));
+  padding: 60px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+/* Navigation */
+.nav-bar {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 100;
+  background: var(--nav-bg);
+  backdrop-filter: blur(12px);
+  border-radius: 40px;
+  padding: 8px 16px;
+  border: 1px solid var(--nav-btn-border);
+}
+
+.nav-btn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--nav-btn-border);
+  background: var(--nav-btn-bg);
+  color: var(--nav-btn-color);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px;
+  transition: all 0.2s;
+}
+.nav-btn:hover { background: rgba(46,167,255,0.2); border-color: var(--blue); }
+
+.nav-counter {
+  color: var(--nav-btn-color);
+  opacity: 0.6;
+  font-size: 15px;
+  font-weight: 500;
+  min-width: 60px;
+  text-align: center;
+}
+
+.nav-dots {
+  display: flex;
+  gap: 4px;
+}
+.nav-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--nav-btn-border);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.nav-dot.active { background: var(--blue); width: 20px; border-radius: 3px; }
+
+.nav-fullscreen {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--nav-btn-border);
+  background: var(--nav-btn-bg);
+  color: var(--nav-btn-color);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px;
+}
+
+/* Slide elements */
+.section-label {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+.slide-title {
+  font-size: 52px;
+  font-weight: 700;
+  margin-bottom: 34px;
+  line-height: 1.2;
+}
+
+.section-number {
+  font-size: 160px;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+.section-part {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  margin-bottom: 16px;
+}
+
+.section-heading {
+  font-size: 72px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.accent-line {
+  width: 200px;
+  height: 3px;
+  margin: 24px 0;
+  border-radius: 2px;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 36px;
+  backdrop-filter: blur(8px);
+}
+
+.card-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.card-body {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-body);
+}
+
+.card-number {
+  font-size: 50px;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.card-accent {
+  width: 40px;
+  height: 3px;
+  border-radius: 2px;
+  margin-bottom: 16px;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.bottom-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: var(--bottom-bar-bg);
+}
+
+/* Icon helpers */
+.icon-lg { width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center; border-radius: 12px; flex-shrink: 0; }
+.icon-md { width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; flex-shrink: 0; }
+.icon-sm { width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; flex-shrink: 0; }
+.icon-bg-blue { background: rgba(46,167,255,0.12); }
+.icon-bg-purple { background: rgba(147,129,255,0.12); }
+.icon-bg-green { background: rgba(19,221,196,0.12); }
+
+/* Flex helpers */
+.row { display: flex; gap: 24px; }
+.col { display: flex; flex-direction: column; gap: 16px; }
+.flex-1 { flex: 1; }
+
+/* Colors */
+.c-blue { color: var(--blue); }
+.c-purple { color: var(--purple); }
+.c-green { color: var(--green); }
+.bg-blue { background: var(--blue); }
+.bg-purple { background: var(--purple); }
+.bg-green { background: var(--green); }
+
+/* Agenda */
+.agenda-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 14px 0;
+}
+.agenda-num {
+  font-size: 38px;
+  font-weight: 800;
+  min-width: 56px;
+}
+.agenda-text { flex: 1; }
+.agenda-title { font-size: 26px; font-weight: 600; margin-bottom: 5px; }
+.agenda-desc { font-size: 20px; color: var(--text-sub); }
+
+/* Table */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 18px;
+}
+.data-table th {
+  background: var(--th-bg);
+  color: var(--blue);
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 16px;
+  border-bottom: 1px solid var(--td-border);
+}
+.data-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--td-border);
+  color: var(--text-body);
+}
+.data-table tr:last-child td { border-bottom: none; }
+.data-table .highlight { color: var(--green); font-weight: 600; }
+.data-table .neg { color: #ff6b6b; }
+
+/* Chart bars */
+.chart-container { display: flex; align-items: flex-end; gap: 40px; height: 400px; }
+.chart-bar-group { display: flex; gap: 12px; align-items: flex-end; }
+.chart-bar { width: 50px; border-radius: 4px 4px 0 0; }
+.chart-label { font-size: 17px; color: var(--text-sub); margin-top: 8px; text-align: center; }
+.chart-value { font-size: 14px; color: var(--text-dim); text-align: center; margin-bottom: 4px; }
+
+/* Action list */
+.action-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--action-border);
+}
+.action-num {
+  font-size: 20px;
+  font-weight: 700;
+  min-width: 30px;
+  color: var(--text-dim);
+}
+.action-num.highlight { color: var(--blue); }
+.action-text { font-size: 18px; color: var(--text-body); line-height: 1.5; }
+
+/* Progress bar */
+.progress-bar { display: none;
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--purple), var(--green));
+  z-index: 99;
+  transition: width 0.3s;
+}
+
+/* Hint */
+.hint { display: none;
+  position: fixed;
+  top: 20px;
+  right: 70px;
+  color: var(--hint-color);
+  font-size: 13px;
+  z-index: 100;
+}
+
+/* Theme Toggle */
+.theme-toggle { display: none;
+  position: fixed;
+  top: 16px;
+  right: 20px;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--nav-btn-border);
+  background: var(--nav-btn-bg);
+  color: var(--nav-btn-color);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  z-index: 100;
+  transition: all 0.2s;
+  backdrop-filter: blur(8px);
+}
+.theme-toggle:hover {
+  background: rgba(46,167,255,0.15);
+  border-color: var(--blue);
+}
+
+/* ── Dark hero background → cover & closing slides ── */
+.slide.dark {
+  background: none;
+}
+.slide.dark::before {
+  content: '';
+  position: absolute;
+  inset: -30px;
+  background: url('bg-cover.jpg') center/cover no-repeat;
+  filter: blur(6px) brightness(0.62);
+  z-index: 0;
+}
+.slide.dark::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(10,37,64,0.52), rgba(10,37,64,0.30));
+  z-index: 1;
+}
+.slide.dark .slide-inner {
+  background: transparent !important;
+  z-index: 2;
+  text-shadow: 0 2px 14px rgba(0,0,0,0.45);
+}
+
+/* Light-mode dark slide adjustments */
+[data-theme="light"] .slide.dark::after {
+  background: linear-gradient(135deg, rgba(255,255,255,0.45), rgba(245,247,250,0.55));
+}
+[data-theme="light"] .slide.dark .slide-inner {
+  text-shadow: 0 2px 12px rgba(0,0,0,0.25);
+}
+
+</style>
+</head>
+<body>
+<div id="app">
+<div class="progress-bar" id="progress" style="width:0%"></div>
+<div class="hint">← → 翻页 · F 全屏 · T 主题</div>
+<button class="theme-toggle" onclick="toggleTheme()" title="切换主题 (T)">◑</button>
+
+<!-- ========== SLIDE 1: COVER ========== -->
+<div class="slide dark" data-slide="1">
+<div class="slide-inner" style="background: var(--bg);">
+  <div class="orb" style="width:500px;height:500px;background:rgba(46,167,255,0.08);top:-100px;right:-100px;"></div>
+  <div class="orb" style="width:400px;height:400px;background:rgba(147,129,255,0.06);bottom:-100px;left:-50px;"></div>
+  <div class="orb" style="width:300px;height:300px;background:rgba(19,221,196,0.05);bottom:200px;right:300px;"></div>
+  <!-- Decorative icon -->
+  <svg style="position:absolute;top:40px;right:100px;opacity:0.06;" width="280" height="280" viewBox="0 0 280 280"><rect x="40" y="80" width="200" height="180" rx="12" fill="none" stroke="white" stroke-width="2"/><rect x="60" y="100" width="70" height="60" rx="6" fill="white"/><rect x="150" y="100" width="70" height="60" rx="6" fill="white"/><rect x="60" y="180" width="70" height="60" rx="6" fill="white"/><rect x="150" y="180" width="70" height="60" rx="6" fill="white"/></svg>
+  <div style="position:absolute;top:50%;left:80px;transform:translateY(-50%);">
+    <div class="section-label c-blue" style="margin-bottom:16px;">MEETING DISCUSSION DRAFT</div>
+    <div style="width:200px;height:3px;background:linear-gradient(90deg,var(--blue),var(--purple),var(--green));margin-bottom:30px;border-radius:2px;"></div>
+    <h1 style="font-size:68px;font-weight:800;line-height:1.15;margin-bottom:16px;">创凌通科技 × 初海联创</h1>
+    <h2 style="font-size:44px;font-weight:400;color:var(--text-sub);margin-bottom:40px;">孵化器合作方案 · 会议讨论稿</h2>
+    <p style="font-size:26px;color:var(--text-dim);">AI + 消费硬件 + 出海 · 河套深港合作区</p>
+  </div>
+  <div class="bottom-bar"></div>
+</div>
+</div>
+
+<!-- ========== SLIDE 2: AGENDA ========== -->
+<div class="slide" data-slide="2">
+<div class="slide-inner" style="background: var(--bg);">
+  <div class="section-label c-blue">AGENDA · 议程</div>
+  <h2 class="slide-title">今日会议议程</h2>
+  <div style="display:flex;gap:60px;width:100%;flex-wrap:wrap;">
+    <div style="flex:1;min-width:500px;">
+      <div class="agenda-item"><span class="agenda-num c-blue">01</span><div class="icon-md icon-bg-blue" style="margin-right:-8px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="5" r="2"/><circle cx="12" cy="19" r="2"/><line x1="12" y1="7" x2="12" y2="9"/><line x1="12" y1="15" x2="12" y2="17"/></svg></div><div class="agenda-text"><div class="agenda-title">孵化器定位</div><div class="agenda-desc">上会已讨论 · 简要总结</div></div></div>
+      <div class="agenda-item"><span class="agenda-num c-purple">02</span><div class="icon-md icon-bg-purple" style="margin-right:-8px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><div class="agenda-text"><div class="agenda-title">在孵主题补充 · AI+硬件</div><div class="agenda-desc">五大方向 · 选品逻辑 · 配套能力</div></div></div>
+      <div class="agenda-item"><span class="agenda-num c-green">03</span><div class="icon-md icon-bg-green" style="margin-right:-8px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><polygon points="22,3 2,3 10,12 10,19 14,22 14,12"/></svg></div><div class="agenda-text"><div class="agenda-title">孵化器运营规划</div><div class="agenda-desc">团队架构 · 现金流（保守+激进）· 运营节奏</div></div></div>
+      <div class="agenda-item"><span class="agenda-num c-blue">04</span><div class="icon-md icon-bg-blue" style="margin-right:-8px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M12 4v4l3 3"/></svg></div><div class="agenda-text"><div class="agenda-title">合作模式</div><div class="agenda-desc">股权架构· 治理结构 </div></div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ========== SLIDE 3: SECTION 1 (HIDDEN TRANSITION) ========== -->
+<div class="slide" data-slide="3">
+<div class="slide-inner" style="background: var(--bg); justify-content:center; align-items:center;">
+  <div class="orb" style="width:600px;height:600px;background:rgba(46,167,255,0.06);top:-200px;right:-100px;"></div>
+  <div style="text-align:center;">
+    <div class="section-number c-blue">01</div>
+    <div class="section-part" style="color:var(--text-dim);">PART ONE</div>
+    <div class="accent-line bg-blue" style="margin:20px auto;"></div>
+    <h2 class="section-heading">孵化器定位</h2>
+    <p style="font-size:24px;color:var(--text-sub);margin-top:20px;">团队定位 · 项目画像</p>
+  </div>
+</div>
+</div>
+
+<!-- ========== SLIDE 3B: 01+02 SUMMARY + AI HARDWARE THEME ========== -->
+<div class="slide" data-slide="3b">
+<div class="slide-inner" style="background: var(--bg);">
+  <div class="section-label c-blue">01 孵化器定位 </div>
+  <h2 class="slide-title">团队定位及项目画像</h2>
+
+  <!-- 01 + 02 简要总结 -->
+  <div style="display:flex;gap:24px;width:100%;">
+    <div class="card" style="flex:1;border-color:rgba(46,167,255,0.18);">
+      <div class="card-title c-blue" style="font-size:18px;">01 · 团队定位</div>
+      <div class="card-accent bg-blue"></div>
+      <div class="card-body" style="font-size:15px;">
+        <strong>AI + 消费硬件 + 出海</strong>，种子轮到天使轮。不碰纯软件 / 模式创新。<br><br>
+        画像三原则：<span style="color:var(--blue);">香港基因优先</span> · <span style="color:var(--purple);">跨境经历其次</span> · <span style="color:var(--green);">技术+商业必须</span>。<br><br>
+        ABC三级体系：<strong>A核心</strong>~10%（邀请制/可免租投资）· <strong>B培育</strong>~20%（路演/投资50-200万）· <strong>C观察</strong>~70%（养场子，季度可升B）。
+      </div>
+    </div>
+    <div class="card" style="flex:1;border-color:rgba(147,129,255,0.18);">
+      <div class="card-title c-purple" style="font-size:18px;">02 · 为何选择我们</div>
+      <div class="card-accent bg-purple"></div>
+      <div class="card-body" style="font-size:15px;">
+        不卖工位，卖<strong>从0到1做第一款产品的完整能力</strong>：<br><br>
+        <strong class="c-blue">钱</strong> 超低净租金 + 亿合盲池基金首期3000-5000万<br>
+        <strong class="c-purple">人</strong> 凯宾IP + 成长陪伴导师团队<br>
+        <strong class="c-green">落地</strong> POC中试 + GOC/颜城众筹<br>
+        <strong class="c-blue">专家</strong> 产品/财税/众筹/运营四类顾问配齐
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ========== SLIDE 6: AI+HARDWARE THEME (STANDALONE) ========== -->
+<div class="slide" data-slide="6">
+<div class="slide-inner" style="background: var(--bg);">
+  <div class="section-label c-blue">孵化项目主题补充 · AI + 硬件</div>
+  <h2 class="slide-title">在孵项目主题补充：AI + 硬件</h2>
+  <p style="font-size:16px;color:var(--text-dim);margin-bottom:20px;">聚焦"有硬件载体、可被AI重做一遍"的消费场景 —— 市场大、深圳供应链成熟、可众筹、可出海</p>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px;width:100%;">
+    <div class="card" style="border-color:rgba(46,167,255,0.18);">
+      <div class="icon-md icon-bg-blue" style="margin-bottom:12px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><path d="M12 2a5 5 0 015 5v2a2 2 0 012 2v8a2 2 0 01-2 2H7a2 2 0 01-2-2v-8a2 2 0 012-2V7a5 5 0 015-5z"/><circle cx="12" cy="14" r="3"/></svg></div>
+      <div class="card-accent bg-blue"></div>
+      <div class="card-body" style="font-size:15px;">
+        <strong class="c-blue" style="font-size:18px;">智能宠物</strong><br><br>
+        互动/喂养/健康穿戴。情感刚需 + 高客单，海外众筹爆款集中地
+      </div>
+    </div>
+    <div class="card" style="border-color:rgba(147,129,255,0.18);">
+      <div class="icon-md icon-bg-purple" style="margin-bottom:12px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2"><path d="M20 12a8 8 0 11-16 0 8 8 0 0116 0z"/><path d="M12 8v8M8 12h8"/></svg></div>
+      <div class="card-accent bg-purple"></div>
+      <div class="card-body" style="font-size:15px;">
+        <strong class="c-purple" style="font-size:18px;">智能睡眠</strong><br><br>
+        AI助眠灯/枕/床垫。健康赛道长坡厚雪，内容+订阅可做复购
+      </div>
+    </div>
+    <div class="card" style="border-color:rgba(19,221,196,0.18);">
+      <div class="icon-md icon-bg-green" style="margin-bottom:12px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+      <div class="card-accent bg-green"></div>
+      <div class="card-body" style="font-size:15px;">
+        <strong class="c-green" style="font-size:18px;">AI陪伴硬件</strong><br><br>
+        桌面/毛绒/潮玩形态。IP+硬件+订阅，Z世代情绪消费
+      </div>
+    </div>
+    <div class="card" style="border-color:rgba(46,167,255,0.18);">
+      <div class="icon-md icon-bg-blue" style="margin-bottom:12px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="12" y2="17"/></svg></div>
+      <div class="card-accent bg-blue"></div>
+      <div class="card-body" style="font-size:15px;">
+        <strong class="c-blue" style="font-size:18px;">AI健康小家电</strong><br><br>
+        个护/厨房/清洁。供应链极成熟，规模化快，适合走量出海
+      </div>
+    </div>
+    <div class="card" style="border-color:rgba(147,129,255,0.18);">
+      <div class="icon-md icon-bg-purple" style="margin-bottom:12px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/><path d="M8 2v2M16 2v2"/></svg></div>
+      <div class="card-accent bg-purple"></div>
+      <div class="card-body" style="font-size:15px;">
+        <strong class="c-purple" style="font-size:18px;">银发科技</strong><br><br>
+        监护/助行/提醒。政策友好、需求确定，跨境华人市场可切
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;gap:20px;width:100%;margin-top:20px;">
+    <div class="card" style="flex:1;border-color:rgba(255,255,255,0.08);">
+      <div class="card-title" style="font-size:18px;">选品逻辑</div>
+      <div class="card-accent bg-blue"></div>
+      <div class="card-body" style="font-size:14px;">
+        ① 市场够大且增长确定　② 深圳硬件供应链可被快速打样<br>
+        ③ 天然适合海外众筹讲故事　④ 有持续耗材/订阅延展空间
+      </div>
+    </div>
+    <div class="card" style="flex:1.4;border-color:rgba(255,255,255,0.08);">
+      <div class="card-title" style="font-size:18px;">配套能力（对照孵化器四大能力）</div>
+      <div class="card-accent bg-green"></div>
+      <div class="card-body" style="font-size:14px;">
+        <strong>POC中试中心</strong> 打样验证 → <strong>GOC/颜城</strong> 众筹操盘（千万美金级经验）→ <strong>易势</strong> 出海KOL投放 → <strong>凯宾</strong> 品类定位与PMF。<br>
+        一条龙把"AI想法"变成"海外热卖硬件"，正是我们相比纯软件孵化器的差异化壁垒。
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ========== SLIDE 12: SECTION 3 ========== -->
+<div class="slide" data-slide="12">
+<div class="slide-inner" style="background: var(--bg); justify-content:center; align-items:center;">
+  <div class="orb" style="width:600px;height:600px;background:rgba(19,221,196,0.06);top:-200px;right:-100px;"></div>
+  <!-- Decorative SVG icon -->
+  <svg style="position:absolute;bottom:40px;right:80px;opacity:0.05;" width="200" height="200" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="9" x2="9" y2="21"/><line x1="15" y1="9" x2="15" y2="21"/></svg>
+  <div style="text-align:center;">
+    <div class="section-number c-green">03</div>
+    <div class="section-part" style="color:var(--text-dim);">PART THREE</div>
+    <div class="accent-line bg-green" style="margin:20px auto;"></div>
+    <h2 class="section-heading">孵化器运营规划及数据预测</h2>
+    <p style="font-size:24px;color:var(--text-sub);margin-top:20px;">团队架构 · 现金流（保守+激进） · 运营节奏</p>
+  </div>
+</div>
+</div>
+
+<!-- ========== SLIDE 13: TEAM STRUCTURE ========== -->
+<div class="slide" data-slide="13">
+<div class="slide-inner" style="background: var(--bg);">
+  <div class="section-label c-green">PART THREE · TEAM STRUCTURE</div>
+  <h2 class="slide-title">团队架构：三层九岗</h2>
+  <div style="display:flex;gap:20px;width:100%;align-items:stretch;">
+    <!-- Decision Layer -->
+    <div class="card" style="flex:1;border-color:rgba(19,221,196,0.15);">
+      <div class="icon-md icon-bg-green" style="margin-bottom:10px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><polygon points="22,3 2,3 10,12 10,19 14,22 14,12"/></svg></div>
+      <div class="card-title c-green" style="font-size:22px;">决策层</div>
+      <div style="font-size:13px;color:var(--text-dim);margin-bottom:16px;">不占日常编制 · 股权/合伙人身份</div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div><strong style="font-size:16px;">凯宾</strong><div style="font-size:14px;color:var(--text-sub);">战略方向 · IP输出 · A类陪跑 · 创业营主讲</div></div>
+        <div><strong style="font-size:16px;">亿合团队</strong><div style="font-size:14px;color:var(--text-sub);">投委会主导 · 基金LPA · 项目退出</div></div>
+        <div><strong style="font-size:16px;">金鹏佳代表</strong><div style="font-size:14px;color:var(--text-sub);">场地 · 牌照 · 政策关系</div></div>
+      </div>
+      <div style="margin-top:16px;padding:10px;background:rgba(19,221,196,0.06);border-radius:8px;font-size:13px;color:var(--green);">已有资源 · 不计入工资</div>
+    </div>
+    <!-- Core Ops -->
+    <div class="card" style="flex:1.2;border-color:rgba(147,129,255,0.15);">
+      <div class="icon-md icon-bg-purple" style="margin-bottom:10px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2"><circle cx="12" cy="6" r="4"/><circle cx="6" cy="16" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+      <div class="card-title c-purple" style="font-size:22px;">核心运营层</div>
+      <div style="font-size:13px;color:var(--text-dim);margin-bottom:16px;">全职3-4人 · 两年人力成本 168万（V2.1）</div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div><strong style="font-size:16px;">运营负责人 COO</strong><div style="font-size:13px;color:var(--text-sub);">创始人担任 · 日常运营 · 创业营 · 政府关系</div></div>
+          <span style="font-size:14px;color:var(--purple);white-space:nowrap;">≤30万</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div><strong style="font-size:16px;">投资经理 ×2</strong><div style="font-size:13px;color:var(--text-sub);">项目发掘 · 尽调 · 投后 · FA对接</div></div>
+          <span style="font-size:14px;color:var(--purple);white-space:nowrap;">20-25万/人</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div><strong style="font-size:16px;">行政兼出纳</strong><div style="font-size:13px;color:var(--text-sub);">入职半年后补充 · 财务 · 行政 · 入驻服务</div></div>
+          <span style="font-size:14px;color:var(--purple);white-space:nowrap;">12万</span>
+        </div>
+      </div>
+      <div style="margin-top:12px;padding:8px 10px;background:rgba(147,129,255,0.06);border-radius:8px;font-size:12px;color:var(--text-sub);line-height:1.5;">
+        Y1人员成本约81万（Q1-Q2仅COO 18.8万/季，Q3起+1投资经理21.8万/季）<br>
+        Y2人员成本约87万（3人稳定）· 两年合计168万
+      </div>
+      <div style="margin-top:10px;padding:8px 10px;background:rgba(19,221,196,0.06);border-radius:8px;font-size:12px;color:var(--green);line-height:1.5;">
+        其余创凌通兼职免费 · 顾问免费 · 内容/社区/产业服务后续扩编
+      </div>
+    </div>
+    <!-- External -->
+    <div class="card" style="flex:0.9;border-color:rgba(19,221,196,0.15);">
+      <div class="icon-md icon-bg-green" style="margin-bottom:10px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><circle cx="12" cy="5" r="3"/><circle cx="5" cy="14" r="2"/><circle cx="19" cy="14" r="2"/><line x1="11.5" y1="8" x2="5.5" y2="12"/><line x1="12.5" y1="8" x2="18.5" y2="12"/></svg></div>
+      <div class="card-title c-green" style="font-size:22px;">外部资源层</div>
+      <div style="font-size:13px;color:var(--text-dim);margin-bottom:16px;">按项目/按季度 · 不占编制</div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div><strong style="font-size:16px;">颜城/GOC</strong><div style="font-size:14px;color:var(--text-sub);">众筹操盘 · 生态合伙人</div></div>
+        <div><strong style="font-size:16px;">易势</strong><div style="font-size:14px;color:var(--text-sub);">出海传播 · 商业合作</div></div>
+        <div><strong style="font-size:16px;">Jean</strong><div style="font-size:14px;color:var(--text-sub);">项目猎手 · 转介分成</div></div>
+        <div><strong style="font-size:16px;">外部财税/法务</strong><div style="font-size:14px;color:var(--text-sub);">5-8万/年 · 3-5万/年</div></div>
+        <div><strong style="font-size:16px;">金鹏佳物业</strong><div style="font-size:14px;color:var(--text-sub);">已有 · 不新增</div></div>
+      </div>
+      <div style="margin-top:16px;padding:10px;background:rgba(19,221,196,0.06);border-radius:8px;font-size:13px;color:var(--green);">重成本→可变成本</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ========== SLIDE 14: QUARTERLY CASH FLOW TABLE ========== -->
+<div class="slide" data-slide="14">
+<div class="slide-inner" style="background: var(--bg);">
+  <div class="section-label c-green">PART THREE · QUARTERLY DETAIL · 保守预测</div>
+  <h2 class="slide-title">季度现金流明细（保守预测）</h2>
+  <table class="data-table" style="margin-top:10px;font-size:13px;">
+    <thead>
+      <tr>
+        <th style="width:20%;">项目（万元）</th>
+        <th style="width:8.75%;text-align:center;">Q1</th>
+        <th style="width:8.75%;text-align:center;">Q2</th>
+        <th style="width:8.75%;text-align:center;">Q3</th>
+        <th style="width:8.75%;text-align:center;">Q4</th>
+        <th style="width:8.75%;text-align:center;">Y2Q1</th>
+        <th style="width:8.75%;text-align:center;">Y2Q2</th>
+        <th style="width:8.75%;text-align:center;">Y2Q3</th>
+        <th style="width:8.75%;text-align:center;">Y2Q4</th>
+        <th style="width:8.75%;text-align:center;">两年合</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="10" style="background:rgba(19,221,196,0.06);color:var(--green);font-weight:600;font-size:12px;padding:4px 14px;">收入端</td></tr>
+      <tr>
+        <td>场地差价净（卖50-买30）</td>
+        <td style="text-align:center;color:var(--text-body);">0.4</td>
+        <td class="highlight" style="text-align:center;">1.6</td>
+        <td class="highlight" style="text-align:center;">2.8</td>
+        <td class="highlight" style="text-align:center;">4.0</td>
+        <td class="highlight" style="text-align:center;">5.2</td>
+        <td class="highlight" style="text-align:center;">6.4</td>
+        <td class="highlight" style="text-align:center;">7.6</td>
+        <td class="highlight" style="text-align:center;">8.8</td>
+        <td class="highlight" style="text-align:center;">36.8</td>
+      </tr>
+      <tr>
+        <td>创业营收费</td>
+        <td class="highlight" style="text-align:center;">6.0</td>
+        <td class="highlight" style="text-align:center;">8.0</td>
+        <td class="highlight" style="text-align:center;">10.0</td>
+        <td class="highlight" style="text-align:center;">12.0</td>
+        <td class="highlight" style="text-align:center;">14.0</td>
+        <td class="highlight" style="text-align:center;">14.0</td>
+        <td class="highlight" style="text-align:center;">14.0</td>
+        <td class="highlight" style="text-align:center;">14.0</td>
+        <td class="highlight" style="text-align:center;">92.0</td>
+      </tr>
+      <tr>
+        <td>融资服务费(FA)</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;">15.0</td>
+        <td style="text-align:center;">20.0</td>
+        <td class="highlight" style="text-align:center;">25.0</td>
+        <td class="highlight" style="text-align:center;">30.0</td>
+        <td class="highlight" style="text-align:center;">35.0</td>
+        <td class="highlight" style="text-align:center;">40.0</td>
+        <td class="highlight" style="text-align:center;">165.0</td>
+      </tr>
+      <tr>
+        <td>银行对接费</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;">5.0</td>
+        <td style="text-align:center;">8.0</td>
+        <td style="text-align:center;">10.0</td>
+        <td class="highlight" style="text-align:center;">15.0</td>
+        <td class="highlight" style="text-align:center;">38.0</td>
+      </tr>
+      <tr style="background:rgba(19,221,196,0.08);">
+        <td style="font-weight:600;color:var(--green);">有把握补贴</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td class="highlight" style="text-align:center;font-weight:700;">50.0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td class="highlight" style="text-align:center;font-weight:700;">100.0</td>
+        <td class="highlight" style="text-align:center;font-weight:700;">150.0</td>
+      </tr>
+      <tr style="background:rgba(19,221,196,0.04);">
+        <td style="font-weight:700;color:#fff;">市场化总收入</td>
+        <td class="highlight" style="text-align:center;">6.4</td>
+        <td class="highlight" style="text-align:center;">9.6</td>
+        <td class="highlight" style="text-align:center;">27.8</td>
+        <td class="highlight" style="text-align:center;">36.0</td>
+        <td class="highlight" style="text-align:center;font-weight:700;">99.2</td>
+        <td class="highlight" style="text-align:center;">58.4</td>
+        <td class="highlight" style="text-align:center;">66.6</td>
+        <td class="highlight" style="text-align:center;font-weight:700;">177.8</td>
+        <td class="highlight" style="text-align:center;font-weight:700;">481.8</td>
+      </tr>
+      <tr><td colspan="10" style="background:rgba(255,107,107,0.06);color:#ff6b6b;font-weight:600;font-size:12px;padding:4px 14px;">成本端</td></tr>
+      <tr>
+        <td>人员成本</td>
+        <td class="neg" style="text-align:center;">-9.0</td>
+        <td class="neg" style="text-align:center;">-14.0</td>
+        <td class="neg" style="text-align:center;">-18.0</td>
+        <td class="neg" style="text-align:center;">-18.0</td>
+        <td class="neg" style="text-align:center;">-22.0</td>
+        <td class="neg" style="text-align:center;">-22.0</td>
+        <td class="neg" style="text-align:center;">-22.0</td>
+        <td class="neg" style="text-align:center;">-22.0</td>
+        <td class="neg" style="text-align:center;">-147.0</td>
+      </tr>
+      <tr>
+        <td>活动成本（营+路演+小活动）</td>
+        <td class="neg" style="text-align:center;">-3.0</td>
+        <td class="neg" style="text-align:center;">-5.0</td>
+        <td class="neg" style="text-align:center;">-5.0</td>
+        <td class="neg" style="text-align:center;">-5.0</td>
+        <td class="neg" style="text-align:center;">-8.0</td>
+        <td class="neg" style="text-align:center;">-8.0</td>
+        <td class="neg" style="text-align:center;">-8.0</td>
+        <td class="neg" style="text-align:center;">-8.0</td>
+        <td class="neg" style="text-align:center;">-50.0</td>
+      </tr>
+      <tr>
+        <td>微装修（一次性）</td>
+        <td class="neg" style="text-align:center;">-20.0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td class="neg" style="text-align:center;">-20.0</td>
+      </tr>
+      <tr style="background:rgba(255,107,107,0.04);">
+        <td style="font-weight:700;color:#fff;">总成本</td>
+        <td class="neg" style="text-align:center;font-weight:700;">-32.0</td>
+        <td class="neg" style="text-align:center;font-weight:700;">-19.0</td>
+        <td class="neg" style="text-align:center;font-weight:700;">-23.0</td>
+        <td class="neg" style="text-align:center;font-weight:700;">-23.0</td>
+        <td class="neg" style="text-align:center;font-weight:700;">-30.0</td>
+        <td class="neg" style="text-align:center;font-weight:700;">-30.0</td>
+        <td class="neg" style="text-align:center;font-weight:700;">-30.0</td>
+        <td class="neg" style="text-align:center;font-weight:700;">-30.0</td>
+        <td class="neg" style="text-align:center;font-weight:700;">-217.0</td>
+      </tr>
+      <tr style="background:rgba(19,221,196,0.1);">
+        <td style="font-weight:700;color:#fff;font-size:15px;">当季净现金流</td>
+        <td class="neg" style="text-align:center;font-weight:700;">-25.6</td>
+        <td class="neg" style="text-align:center;font-weight:700;">-9.4</td>
+        <td class="highlight" style="text-align:center;font-weight:700;">+4.8</td>
+        <td class="highlight" style="text-align:center;font-weight:700;">+13.0</td>
+        <td class="highlight" style="text-align:center;font-weight:700;">+69.2</td>
+        <td class="highlight" style="text-align:center;font-weight:700;">+28.4</td>
+        <td class="highlight" style="text-align:center;font-weight:700;">+36.6</td>
+        <td class="highlight" style="text-align:center;font-weight:700;">+147.8</td>
+        <td class="highlight" style="text-align:center;font-weight:700;font-size:15px;">+264.8</td>
+      </tr>
+      <tr style="background:rgba(19,221,196,0.06);">
+        <td style="font-weight:700;color:var(--green);font-size:14px;">累计净现金流</td>
+        <td class="neg" style="text-align:center;font-weight:600;">-25.6</td>
+        <td class="neg" style="text-align:center;font-weight:600;">-35.0</td>
+        <td class="neg" style="text-align:center;font-weight:600;">-30.2</td>
+        <td class="neg" style="text-align:center;font-weight:600;">-17.2</td>
+        <td class="highlight" style="text-align:center;font-weight:600;">+52.0</td>
+        <td class="highlight" style="text-align:center;font-weight:600;">+80.4</td>
+        <td class="highlight" style="text-align:center;font-weight:600;">+117.0</td>
+        <td class="highlight" style="text-align:center;font-weight:600;">+264.8</td>
+        <td class="highlight" style="text-align:center;font-weight:700;">+264.8</td>
+      </tr>
+    </tbody>
+  </table>
+  <div style="display:flex;gap:20px;margin-top:14px;font-size:12px;">
+    <span style="color:#ff6b6b;">● 负值（现金坑期）</span>
+    <span style="color:var(--green);">● 正值（盈余期）</span>
+    <span style="color:var(--green);">● 补贴到账：Y2Q1 +50万 / Y2Q4 +100万</span>
+    <span style="color:var(--text-dim);">Q3起转正 · 保守节奏</span>
+  </div>
+</div>
+</div>
+
+<!-- ========== SLIDE 15: CASH FLOW V2.1 — OVERVIEW ========== -->
+<div class="slide" data-slide="15">
+<div class="slide-inner" style="background: var(--bg);">
+  <div class="section-label c-green">PART THREE · CASH FLOW · 保守预测</div>
+  <h2 class="slide-title">现金流预测（保守测算）</h2>
+
+  <!-- Key Metric Cards -->
+  <div style="display:flex;gap:24px;width:100%;margin-bottom:40px;">
+    <div class="card" style="flex:1;text-align:center;padding:28px 24px;border-color:rgba(255,107,107,0.2);">
+      <div class="icon-md icon-bg-green" style="margin:0 auto 12px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg></div>
+      <div style="font-size:15px;color:var(--text-dim);letter-spacing:1px;margin-bottom:8px;">前期启动资金</div>
+      <div style="font-size:52px;font-weight:800;color:#ff6b6b;">55-75<span style="font-size:24px;">万</span></div>
+      <div style="font-size:14px;color:var(--text-sub);margin-top:6px;">覆盖最深现金坑 + 安全垫</div>
+    </div>
+    <div class="card" style="flex:1;text-align:center;padding:28px 24px;border-color:rgba(255,107,107,0.2);">
+      <div class="icon-md icon-bg-green" style="margin:0 auto 12px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><polyline points="23,6 13.5,15.5 8.5,10.5 1,18"/><polyline points="17,6 23,6 23,12"/></svg></div>
+      <div style="font-size:15px;color:var(--text-dim);letter-spacing:1px;margin-bottom:8px;">最深现金坑（Y1Q2）</div>
+      <div style="font-size:52px;font-weight:800;color:#ff6b6b;">-35<span style="font-size:24px;">万</span></div>
+      <div style="font-size:14px;color:var(--text-sub);margin-top:6px;">Q3即转正 · 含微装修20万</div>
+    </div>
+    <div class="card" style="flex:1;text-align:center;padding:28px 24px;border-color:rgba(19,221,196,0.2);">
+      <div class="icon-md icon-bg-green" style="margin:0 auto 12px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><line x1="12" y1="2" x2="12" y2="22"/><polyline points="17,5 12,2 7,5"/><polyline points="17,11 12,14 7,11"/></svg></div>
+      <div style="font-size:15px;color:var(--text-dim);letter-spacing:1px;margin-bottom:8px;">两年末累计盈余</div>
+      <div style="font-size:52px;font-weight:800;color:var(--green);">+265<span style="font-size:24px;">万</span></div>
+      <div style="font-size:14px;color:var(--text-sub);margin-top:6px;">含补贴150万 · 可滚入Y3</div>
+    </div>
+  </div>
+
+  <!-- Cumulative Trajectory -->
+  <div style="width:100%;">
+    <div style="font-size:16px;color:var(--text-sub);margin-bottom:16px;font-weight:600;">累计净现金流走势（万元）· 保守预测</div>
+    <div style="display:flex;align-items:flex-end;gap:12px;height:260px;position:relative;padding:0 8px;">
+      <div style="position:absolute;left:0;right:0;bottom:130px;height:1px;background:rgba(255,255,255,0.15);z-index:0;"></div>
+      <div style="position:absolute;right:12px;bottom:134px;font-size:12px;color:var(--text-dim);">0</div>
+      <!-- Q1 -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:14px;color:#ff6b6b;font-weight:600;margin-bottom:4px;">-25.6</div>
+        <div style="width:100%;height:63px;background:rgba(255,107,107,0.6);border-radius:4px 4px 0 0;"></div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:6px;">Q1</div>
+      </div>
+      <!-- Q2 -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:14px;color:#ff6b6b;font-weight:700;margin-bottom:4px;">-35.0</div>
+        <div style="width:100%;height:86px;background:rgba(255,107,107,0.8);border-radius:4px 4px 0 0;"></div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:6px;">Q2</div>
+      </div>
+      <!-- Q3 -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:14px;color:#ff6b6b;font-weight:600;margin-bottom:4px;">-30.2</div>
+        <div style="width:100%;height:74px;background:rgba(255,107,107,0.55);border-radius:4px 4px 0 0;"></div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:6px;">Q3</div>
+      </div>
+      <!-- Q4 -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:14px;color:#ff6b6b;font-weight:600;margin-bottom:4px;">-17.2</div>
+        <div style="width:100%;height:42px;background:rgba(255,107,107,0.45);border-radius:4px 4px 0 0;"></div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:6px;">Q4</div>
+      </div>
+      <!-- Divider -->
+      <div style="width:2px;height:260px;background:rgba(255,255,255,0.06);flex-shrink:0;"></div>
+      <!-- Y2Q1 -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:14px;color:var(--green);font-weight:600;margin-bottom:4px;">+52.0</div>
+        <div style="width:100%;height:40px;background:rgba(19,221,196,0.6);border-radius:4px 4px 0 0;"></div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:6px;">Y2Q1</div>
+      </div>
+      <!-- Y2Q2 -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:14px;color:var(--green);font-weight:600;margin-bottom:4px;">+80.4</div>
+        <div style="width:100%;height:62px;background:rgba(19,221,196,0.6);border-radius:4px 4px 0 0;"></div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:6px;">Y2Q2</div>
+      </div>
+      <!-- Y2Q3 -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:14px;color:var(--green);font-weight:600;margin-bottom:4px;">+117</div>
+        <div style="width:100%;height:90px;background:rgba(19,221,196,0.7);border-radius:4px 4px 0 0;"></div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:6px;">Y2Q3</div>
+      </div>
+      <!-- Y2Q4 -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+        <div style="font-size:14px;color:var(--green);font-weight:700;margin-bottom:4px;">+264.8</div>
+        <div style="width:100%;height:104px;background:rgba(19,221,196,0.9);border-radius:4px 4px 0 0;"></div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:6px;font-weight:600;">Y2Q4</div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:12px;font-size:13px;color:var(--text-dim);">
+      <span>← Y1 现金坑期（需备缓冲）</span>
+      <span style="color:var(--green);">Y2 转正并快速积累 →</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ========== SLIDE 16: CASH FLOW V2.1 — DETAILED TABLE ========== -->
+<div class="slide" data-slide="16">
+<div class="slide-inner" style="background: var(--bg);">
+  <div class="section-label c-green">PART THREE · CASH FLOW · 保守预测</div>
+  <h2 class="slide-title">两年收支明细（保守预测 · 万元）</h2>
+
+  <!-- Two-Year Summary Table -->
+  <table class="data-table" style="margin-top:10px;">
+    <thead>
+      <tr>
+        <th style="width:30%;">两年汇总（万元）</th>
+        <th style="width:14%;">Y1</th>
+        <th style="width:14%;">Y2</th>
+        <th style="width:14%;">两年合计</th>
+        <th style="width:28%;">说明</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="5" style="background:rgba(19,221,196,0.06);color:var(--green);font-weight:600;font-size:12px;padding:4px 14px;">收入端</td></tr>
+      <tr><td>场地差价净（卖50-买30）</td><td class="highlight">+8.8</td><td class="highlight">+28.0</td><td class="highlight">+36.8</td><td style="font-size:12px;color:var(--text-sub);">差价=卖50-买30，计入运营收入</td></tr>
+      <tr><td>创业营收费</td><td class="highlight">+36.0</td><td class="highlight">+56.0</td><td class="highlight">+92.0</td><td style="font-size:12px;color:var(--text-sub);">Q1→Q4：6→8→10→12万/季</td></tr>
+      <tr><td>融资服务费 FA</td><td>+35.0</td><td class="highlight">+130.0</td><td class="highlight">+165.0</td><td style="font-size:12px;color:var(--text-sub);">Q3起15→40万/季递增</td></tr>
+      <tr><td>银行对接费</td><td>—</td><td class="highlight">+38.0</td><td class="highlight">+38.0</td><td style="font-size:12px;color:var(--text-sub);">Y2Q1起5→15万/季递增</td></tr>
+      <tr style="background:rgba(19,221,196,0.08);"><td style="font-weight:700;color:var(--green);">有把握补贴</td><td>—</td><td class="highlight">+150.0</td><td class="highlight">+150.0</td><td style="font-size:12px;color:var(--text-sub);">认定补助150万（Q1）、评价优秀50万（Q4）</td></tr>
+      <tr style="background:rgba(19,221,196,0.04);"><td style="font-weight:700;color:#fff;">总收入</td><td class="highlight">79.8</td><td class="highlight">402.0</td><td class="highlight">481.8</td><td style="font-size:12px;color:var(--text-sub);">含补贴后两年总收入</td></tr>
+      <tr><td colspan="5" style="background:rgba(255,107,107,0.06);color:#ff6b6b;font-weight:600;font-size:12px;padding:4px 14px;">成本端</td></tr>
+      <tr><td>人员成本</td><td class="neg">-59.0</td><td class="neg">-88.0</td><td class="neg">-147.0</td><td style="font-size:12px;color:var(--text-sub);">Q1起9→14→18→22万/季递增</td></tr>
+      <tr><td>活动成本（创业营+路演+小活动）</td><td class="neg">-18.0</td><td class="neg">-32.0</td><td class="neg">-50.0</td><td style="font-size:12px;color:var(--text-sub);">Q1起3→5→8万/季递增</td></tr>
+      <tr><td>微装修（一次性）</td><td class="neg">-20.0</td><td>—</td><td class="neg">-20.0</td><td style="font-size:12px;color:var(--text-sub);">Q1一次性投入</td></tr>
+      <tr style="background:rgba(255,107,107,0.04);"><td style="font-weight:700;color:#fff;">总成本</td><td style="color:#ff6b6b;">-97.0</td><td style="color:#ff6b6b;">-120.0</td><td style="color:#ff6b6b;">-217.0</td><td style="font-size:12px;color:var(--text-sub);"></td></tr>
+      <tr style="background:rgba(19,221,196,0.1);"><td style="font-weight:700;color:#fff;font-size:17px;">运营净现金流</td><td class="neg" style="font-size:17px;font-weight:700;">-17.2</td><td class="highlight" style="font-size:17px;font-weight:700;">+282.0</td><td class="highlight" style="font-size:17px;font-weight:700;">+264.8</td><td style="font-size:12px;color:var(--green);font-weight:600;">含补贴150万</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:12px;font-size:13px;color:var(--text-sub);">💡 服务费（营费+FA+银行）295万/两年是打平地基；150万补贴把盈余从+114.8万抬到+264.8万，是"锦上添花"非"雪中送炭"。</p>
+</div>
+</div>
+
+<!-- ========== SLIDE 17: SENSITIVITY ANALYSIS ========== -->
+<div class="slide" data-slide="17">
+<div class="slide-inner" style="background: var(--bg);">
+  <div class="section-label c-green">PART THREE · SENSITIVITY · 保守预测</div>
+  <h2 class="slide-title">敏感性分析 · 前期投入结论</h2>
+
+  <div style="display:flex;gap:24px;width:100%;align-items:stretch;">
+    <!-- Left: Sensitivity Scenarios -->
+    <div style="flex:1.1;">
+      <div style="font-size:16px;font-weight:600;color:var(--text-sub);margin-bottom:14px;">三种情形对比（两年末 · 保守预测）</div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th style="width:34%;">情形</th>
+            <th style="width:22%;">两年末</th>
+            <th style="width:22%;">最深现金坑</th>
+            <th style="width:22%;">需备缓冲</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:rgba(19,221,196,0.08);">
+            <td style="font-weight:700;color:var(--green);">A 全市场化 + 补贴<br><span style="font-size:12px;color:var(--text-sub);font-weight:400;">推荐基线</span></td>
+            <td class="highlight" style="font-size:20px;font-weight:800;">+264.8万</td>
+            <td style="color:#ff6b6b;font-size:16px;">-35万</td>
+            <td class="highlight" style="font-size:16px;font-weight:600;">35万</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--text-body);">C 服务费打折50% + 补贴<br><span style="font-size:12px;color:var(--text-sub);font-weight:400;">FA/银行费减半</span></td>
+            <td class="highlight" style="font-size:18px;">+163.3万</td>
+            <td style="color:#ff6b6b;font-size:16px;">-38万</td>
+            <td style="color:#ff6b6b;font-size:16px;">38万</td>
+          </tr>
+          <tr style="background:rgba(255,107,107,0.06);">
+            <td style="font-weight:600;color:#ff6b6b;">B 仅差价（无服务费）+ 补贴<br><span style="font-size:12px;color:var(--text-sub);font-weight:400;">最差情形</span></td>
+            <td style="color:#ff6b6b;font-size:18px;font-weight:700;">-30.2万</td>
+            <td style="color:#ff6b6b;font-size:16px;">-109万</td>
+            <td style="color:#ff6b6b;font-size:16px;">109万</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin-top:16px;padding:16px 20px;background:rgba(255,107,107,0.06);border:1px solid rgba(255,107,107,0.15);border-radius:12px;">
+        <div style="font-size:14px;font-weight:600;color:#ff6b6b;margin-bottom:6px;">⚠️ 核心结论</div>
+        <div style="font-size:14px;color:var(--text-body);line-height:1.6;">保守模型下，<strong style="color:#fff;">服务费完全缺失</strong>两年仍亏30万——即便有150万补贴也救不了。<strong style="color:var(--green);">服务费（营+FA+银行）才是真正的地基</strong>，服务费打5折时盈余仍有+163万。</div>
+      </div>
+    </div>
+
+    <!-- Right: Startup Capital & Key Conclusions -->
+    <div style="flex:0.9;display:flex;flex-direction:column;gap:16px;">
+      <!-- Startup Capital -->
+      <div class="card" style="border-color:rgba(19,221,196,0.15);padding:24px;">
+        <div class="card-title c-green" style="font-size:22px;">前期启动资金</div>
+        <div style="display:flex;gap:16px;margin-top:12px;">
+          <div style="flex:1;text-align:center;padding:12px;background:rgba(19,221,196,0.06);border-radius:8px;">
+            <div style="font-size:12px;color:var(--text-dim);">运营缓冲</div>
+            <div style="font-size:24px;font-weight:800;color:var(--green);">35-55<span style="font-size:14px;">万</span></div>
+            <div style="font-size:11px;color:var(--text-sub);">覆盖最深坑+安全垫</div>
+          </div>
+          <div style="flex:1;text-align:center;padding:12px;background:rgba(147,129,255,0.06);border-radius:8px;">
+            <div style="font-size:12px;color:var(--text-dim);">微装修（已含坑内）</div>
+            <div style="font-size:24px;font-weight:800;color:var(--purple);">20<span style="font-size:14px;">万</span></div>
+            <div style="font-size:11px;color:var(--text-sub);">不另加</div>
+          </div>
+        </div>
+        <div style="margin-top:12px;padding:10px;background:rgba(19,221,196,0.06);border-radius:8px;font-size:13px;color:var(--green);font-weight:600;">合计约 55-75万 · 两年末+265万可滚入Y3</div>
+      </div>
+
+      <!-- Key Conclusions -->
+      <div class="card" style="border-color:rgba(19,221,196,0.15);padding:24px;flex:1;">
+        <div class="card-title c-green" style="font-size:20px;">给会议的4条结论</div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px;">
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <span style="font-size:16px;font-weight:800;color:var(--green);min-width:24px;">1</span>
+            <div style="font-size:14px;color:var(--text-body);line-height:1.5;"><strong style="color:#fff;">启动资金55-75万足够</strong>，最深坑仅-35万，Y1Q3即可转正，现金坑极浅</div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <span style="font-size:16px;font-weight:800;color:var(--green);min-width:24px;">2</span>
+            <div style="font-size:14px;color:var(--text-body);line-height:1.5;"><strong style="color:#fff;">Y2 爆发力强</strong>：Y2 净现金流 +282万，补贴到账后累计 +264.8万可滚入Y3</div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <span style="font-size:16px;font-weight:800;color:var(--green);min-width:24px;">3</span>
+            <div style="font-size:14px;color:var(--text-body);line-height:1.5;"><strong style="color:#fff;">补贴要"主动申"</strong>：150万（认定补助）需Y1对标筹备，Y2拿下</div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <span style="font-size:16px;font-weight:800;color:var(--green);min-width:24px;">4</span>
+            <div style="font-size:14px;color:var(--text-body);line-height:1.5;"><strong style="color:#fff;">服务费是地基</strong>：即便按保守节奏，FA+营费+银行费295万/两年是核心收入来源</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ========== SLIDE 17a: AGGRESSIVE SECTION TRANSITION ========== -->
+<div class="slide" data-slide="17a">
+<div class="slide-inner" style="background: var(--bg); justify-content:center; align-items:center;">
+  <div class="orb" style="width:600px;height:600px;background:rgba(147,129,255,0.06);top:-200px;left:-100px;"></div>
+  <!-- Decorative SVG icon -->
+  <svg style="position:absolute;top:50px;right:80px;opacity:0.06;" width="220" height="220" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="1"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/></svg>
+  <div style="text-align:center;">
+    <div class="section-number c-purple">03B</div>
+    <div class="section-part" style="color:var(--text-dim);">PART THREE · ALTERNATIVE</div>
+    <div class="accent-line bg-purple" style="margin:20px auto;"></div>
+    <div class="section-title" style="color:#fff;">经营预测 · 激进情景</div>
+    <div class="section-sub" style="color:var(--text-dim);">AGGRESSIVE SCENARIO</div>
+    <div style="margin-top:48px;font-size:16px;color:var(--text-sub);line-height:1.8;text-align:left;max-width:500px;">
+      <div style="display:flex;align-items:center;gap:10px;"><span style="color:var(--purple);">▸</span> 入园企业数量增长提速、创业营提价提速</div>
+      <div style="display:flex;align-items:center;gap:10px;"><span style="color:var(--purple);">▸</span> 银行对接费提前启动、微装修投入加大</div>
+      <div style="display:flex;align-items:center;gap:10px;"><span style="color:var(--purple);">▸</span> 补贴争取全额 200万（认定+优秀+龙岗）</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ========== SLIDE 17b: AGGRESSIVE QUARTERLY DETAIL ========== -->
+<div class="slide" data-slide="17b">
+<div class="slide-inner" style="background: var(--bg);">
+  <div class="section-label c-purple">PART THREE · QUARTERLY DETAIL · 激进预测</div>
+  <h2 class="slide-title">季度现金流明细（激进预测）</h2>
+  <table class="data-table" style="margin-top:10px;font-size:13px;">
+    <thead>
+      <tr>
+        <th style="width:20%;">项目（万元）</th>
+        <th style="width:8.75%;text-align:center;">Q1</th>
+        <th style="width:8.75%;text-align:center;">Q2</th>
+        <th style="width:8.75%;text-align:center;">Q3</th>
+        <th style="width:8.75%;text-align:center;">Q4</th>
+        <th style="width:8.75%;text-align:center;">Y2Q1</th>
+        <th style="width:8.75%;text-align:center;">Y2Q2</th>
+        <th style="width:8.75%;text-align:center;">Y2Q3</th>
+        <th style="width:8.75%;text-align:center;">Y2Q4</th>
+        <th style="width:8.75%;text-align:center;">两年合</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="10" style="background:rgba(147,129,255,0.06);color:var(--purple);font-weight:600;font-size:12px;padding:4px 14px;">收入端</td></tr>
+      <tr>
+        <td>场地差价净（卖50-买30）</td>
+        <td style="text-align:center;color:var(--text-body);">0.6</td>
+        <td class="highlight" style="text-align:center;">2.4</td>
+        <td class="highlight" style="text-align:center;">4.2</td>
+        <td class="highlight" style="text-align:center;">6.0</td>
+        <td class="highlight" style="text-align:center;">7.8</td>
+        <td class="highlight" style="text-align:center;">9.6</td>
+        <td class="highlight" style="text-align:center;">11.4</td>
+        <td class="highlight" style="text-align:center;">13.2</td>
+        <td class="highlight" style="text-align:center;">55.2</td>
+      </tr>
+      <tr>
+        <td>创业营收费</td>
+        <td class="highlight" style="text-align:center;">6.0</td>
+        <td class="highlight" style="text-align:center;">8.0</td>
+        <td class="highlight" style="text-align:center;">12.0</td>
+        <td class="highlight" style="text-align:center;">15.0</td>
+        <td class="highlight" style="text-align:center;">20.0</td>
+        <td class="highlight" style="text-align:center;">20.0</td>
+        <td class="highlight" style="text-align:center;">20.0</td>
+        <td class="highlight" style="text-align:center;">20.0</td>
+        <td class="highlight" style="text-align:center;">121.0</td>
+      </tr>
+      <tr>
+        <td>融资服务费(FA)</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;">15.0</td>
+        <td style="text-align:center;">20.0</td>
+        <td class="highlight" style="text-align:center;">25.0</td>
+        <td class="highlight" style="text-align:center;">30.0</td>
+        <td class="highlight" style="text-align:center;">35.0</td>
+        <td class="highlight" style="text-align:center;">40.0</td>
+        <td class="highlight" style="text-align:center;">165.0</td>
+      </tr>
+      <tr>
+        <td>银行对接费</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;">5.0</td>
+        <td style="text-align:center;">8.0</td>
+        <td style="text-align:center;">10.0</td>
+        <td style="text-align:center;">12.0</td>
+        <td class="highlight" style="text-align:center;">15.0</td>
+        <td class="highlight" style="text-align:center;">18.0</td>
+        <td class="highlight" style="text-align:center;">68.0</td>
+      </tr>
+      <tr style="background:rgba(147,129,255,0.08);">
+        <td style="font-weight:600;color:var(--purple);">有把握补贴</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td class="highlight" style="text-align:center;font-weight:700;">100.0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td class="highlight" style="text-align:center;font-weight:700;">100.0</td>
+        <td class="highlight" style="text-align:center;font-weight:700;">200.0</td>
+      </tr>
+      <tr style="background:rgba(147,129,255,0.04);">
+        <td style="font-weight:700;color:#fff;">市场化总收入</td>
+        <td class="highlight" style="text-align:center;">6.6</td>
+        <td class="highlight" style="text-align:center;">10.4</td>
+        <td class="highlight" style="text-align:center;">36.2</td>
+        <td class="highlight" style="text-align:center;">49.0</td>
+        <td class="highlight" style="text-align:center;font-weight:700;">162.8</td>
+        <td class="highlight" style="text-align:center;">71.6</td>
+        <td class="highlight" style="text-align:center;">81.4</td>
+        <td class="highlight" style="text-align:center;font-weight:700;">191.2</td>
+        <td class="highlight" style="text-align:center;font-weight:700;">609.2</td>
+      </tr>
+      <tr><td colspan="10" style="background:rgba(255,107,107,0.06);color:#ff6b6b;font-weight:600;font-size:12px;padding:4px 14px;">成本端</td></tr>
+      <tr>
+        <td>人员成本</td>
+        <td class="neg" style="text-align:center;">-12.0</td>
+        <td class="neg" style="text-align:center;">-16.0</td>
+        <td class="neg" style="text-align:center;">-20.0</td>
+        <td class="neg" style="text-align:center;">-20.0</td>
+        <td class="neg" style="text-align:center;">-22.0</td>
+        <td class="neg" style="text-align:center;">-22.0</td>
+        <td class="neg" style="text-align:center;">-22.0</td>
+        <td class="neg" style="text-align:center;">-22.0</td>
+        <td class="neg" style="text-align:center;">-156.0</td>
+      </tr>
+      <tr>
+        <td>活动成本</td>
+        <td class="neg" style="text-align:center;">-3.0</td>
+        <td class="neg" style="text-align:center;">-5.0</td>
+        <td class="neg" style="text-align:center;">-5.0</td>
+        <td class="neg" style="text-align:center;">-5.0</td>
+        <td class="neg" style="text-align:center;">-8.0</td>
+        <td class="neg" style="text-align:center;">-8.0</td>
+        <td class="neg" style="text-align:center;">-8.0</td>
+        <td class="neg" style="text-align:center;">-8.0</td>
+        <td class="neg" style="text-align:center;">-50.0</td>
+      </tr>
+      <tr>
+        <td>微装修（一次性）</td>
+        <td class="neg" style="text-align:center;">-40.0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td style="text-align:center;color:var(--text-dim);">0</td>
+        <td class="neg" style="text-align:center;">-40.0</td>
+      </tr>
+      <tr style="background:rgba(255,107,107,0.04);">
+        <td style="font-weight:700;color:#fff;">总成本</td>
+        <td class="neg" style="text-align:center;font-weight:700;">-55.0</td>
+        <td class="neg" style="text-align:center;font-weight:700;">-21.0</td>
+        <td class="neg" style="text-align:center;font-weight:700;">-25.0</td>
+        <td class="neg" style="text-align:center;font-weight:700;">-25.0</td>
+        <td class="neg" style="text-align:center;font-weight:700;">-30.0</td>
+        <td class="neg" style="text-align:center;font-weight:700;">-30.0</td>
+        <td class="neg" style="text-align:center;font-weight:700;">-30.0</td>
+        <td class="neg" style="text-align:center;font-weight:700;">-30.0</td>
+        <td class="neg" style="text-align:center;font-weight:700;">-246.0</td>
+      </tr>
+      <tr style="background:rgba(19,221,196,0.1);">
+        <td style="font-weight:700;color:#fff;font-size:15px;">当季净现金流</td>
+        <td class="neg" style="text-align:center;font-weight:700;">-48.4</td>
+        <td class="neg" style="text-align:center;font-weight:700;">-10.6</td>
+        <td class="highlight" style="text-align:center;font-weight:700;">+11.2</td>
+        <td class="highlight" style="text-align:center;font-weight:700;">+24.0</td>
+        <td class="highlight" style="text-align:center;font-weight:700;">+132.8</td>
+        <td class="highlight" style="text-align:center;font-weight:700;">+41.6</td>
+        <td class="highlight" style="text-align:center;font-weight:700;">+51.4</td>
+        <td class="highlight" style="text-align:center;font-weight:700;">+161.2</td>
+        <td class="highlight" style="text-align:center;font-weight:700;font-size:15px;">+363.2</td>
+      </tr>
+      <tr style="background:rgba(147,129,255,0.06);">
+        <td style="font-weight:700;color:var(--purple);font-size:14px;">累计净现金流</td>
+        <td class="neg" style="text-align:center;font-weight:600;">-48.4</td>
+        <td class="neg" style="text-align:center;font-weight:600;">-59.0</td>
+        <td class="neg" style="text-align:center;font-weight:600;">-47.8</td>
+        <td class="neg" style="text-align:center;font-weight:600;">-23.8</td>
+        <td class="highlight" style="text-align:center;font-weight:600;">+109.0</td>
+        <td class="highlight" style="text-align:center;font-weight:600;">+150.6</td>
+        <td class="highlight" style="text-align:center;font-weight:600;">+202.0</td>
+        <td class="highlight" style="text-align:center;font-weight:600;">+363.2</td>
+        <td class="highlight" style="text-align:center;font-weight:700;">+363.2</td>
+      </tr>
+    </tbody>
+  </table>
+  <div style="display:flex;gap:20px;margin-top:14px;font-size:12px;">
+    <span style="color:#ff6b6b;">● 负值（现金坑期）</span>
+    <span style="color:var(--green);">● 正值（盈余期）</span>
+    <span style="color:var(--purple);">● 补贴：Y2Q1 +100万 / Y2Q4 +100万</span>
+    <span style="color:var(--text-dim);">Q3起转正 · 激进节奏</span>
+  </div>
+</div>
+</div>
+
+<!-- ========== SLIDE 17c: AGGRESSIVE SUMMARY + COMPARISON ========== -->
+<div class="slide" data-slide="17c">
+<div class="slide-inner" style="background: var(--bg);">
+  <div class="section-label c-purple">PART THREE · COMPARISON</div>
+  <h2 class="slide-title">保守 vs 激进 · 关键指标对比</h2>
+
+  <!-- Key Metric Cards Row -->
+  <div style="display:flex;gap:24px;width:100%;margin-bottom:32px;">
+    <div class="card" style="flex:1;text-align:center;padding:24px 20px;border-color:rgba(255,107,107,0.2);">
+      <div class="icon-md icon-bg-green" style="margin:0 auto 10px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><rect x="8" y="2" width="8" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+      <div style="font-size:14px;color:var(--text-dim);letter-spacing:1px;margin-bottom:6px;">前期启动资金</div>
+      <div style="font-size:36px;font-weight:800;color:#ff6b6b;line-height:1.1;">80-100<span style="font-size:18px;">万</span></div>
+      <div style="font-size:12px;color:var(--text-sub);margin-top:4px;">激进 · 最深坑-59万+安全垫</div>
+    </div>
+    <div class="card" style="flex:1;text-align:center;padding:24px 20px;border-color:rgba(255,107,107,0.2);">
+      <div style="font-size:13px;color:var(--text-dim);letter-spacing:1px;margin-bottom:6px;">最深现金坑（Y1Q2）</div>
+      <div style="font-size:36px;font-weight:800;color:#ff6b6b;line-height:1.1;">-59<span style="font-size:18px;">万</span></div>
+      <div style="font-size:12px;color:var(--text-sub);margin-top:4px;">激进 · Q3即转正</div>
+    </div>
+    <div class="card" style="flex:1;text-align:center;padding:24px 20px;border-color:rgba(19,221,196,0.2);">
+      <div style="font-size:13px;color:var(--text-dim);letter-spacing:1px;margin-bottom:6px;">两年末累计盈余</div>
+      <div style="font-size:36px;font-weight:800;color:var(--green);line-height:1.1;">+363<span style="font-size:18px;">万</span></div>
+      <div style="font-size:12px;color:var(--text-sub);margin-top:4px;">激进 · 含补贴200万</div>
+    </div>
+  </div>
+
+  <!-- Comparison Table -->
+  <table class="data-table" style="margin-top:10px;">
+    <thead>
+      <tr>
+        <th style="width:28%;">核心指标</th>
+        <th style="width:22%;">保守</th>
+        <th style="width:22%;">激进</th>
+        <th style="width:28%;">差异</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>启动资金</td><td style="color:var(--green);font-weight:600;">55-75万</td><td style="color:var(--purple);font-weight:600;">80-100万</td><td style="color:#ff6b6b;">+25万</td></tr>
+      <tr><td>最深现金坑</td><td>-35万（Y1Q2）</td><td>-59万（Y1Q2）</td><td style="color:#ff6b6b;">更深24万</td></tr>
+      <tr style="background:rgba(19,221,196,0.04);"><td>两年总收入</td><td class="highlight">481.8万</td><td class="highlight">609.2万</td><td class="highlight">+127.4万</td></tr>
+      <tr><td>两年总成本</td><td style="color:#ff6b6b;">217.0万</td><td style="color:#ff6b6b;">246.0万</td><td style="color:#ff6b6b;">+29万</td></tr>
+      <tr style="background:rgba(19,221,196,0.08);"><td style="font-weight:700;color:#fff;">两年末盈余</td><td class="highlight" style="font-size:18px;font-weight:700;">+264.8万</td><td class="highlight" style="font-size:18px;font-weight:700;color:var(--purple);">+363.2万</td><td class="highlight" style="font-weight:600;">+98.4万</td></tr>
+    </tbody>
+  </table>
+
+  <div style="display:flex;gap:24px;margin-top:24px;">
+    <div class="card" style="flex:1;border-color:rgba(19,221,196,0.15);padding:18px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <div class="icon-sm icon-bg-green"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg></div>
+        <div style="font-size:15px;font-weight:600;color:var(--green);">保守 要点</div>
+      </div>
+      <div style="font-size:14px;color:var(--text-sub);line-height:1.6;">
+        ◉ 人员 & 活动按温和节奏增长<br>
+        ◉ 银行费 Y2 才启动<br>
+        ◉ 补贴 150万（仅认定+评价）<br>
+        ◉ 启动资金门槛更低
+      </div>
+    </div>
+    <div class="card" style="flex:1;border-color:rgba(147,129,255,0.15);padding:18px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <div class="icon-sm icon-bg-purple"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/></svg></div>
+        <div style="font-size:15px;font-weight:600;color:var(--purple);">激进 要点</div>
+      </div>
+      <div style="font-size:14px;color:var(--text-sub);line-height:1.6;">
+        ◉ 人员到岗更快（Y1 即配齐）<br>
+        ◉ 银行费 Y1Q3 即启动<br>
+        ◉ 补贴 200万（含龙岗）<br>
+        ◉ 启动资金多25万，盈余多98万
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;padding:14px;background:rgba(147,129,255,0.06);border-radius:8px;font-size:13px;color:var(--text-sub);text-align:center;">
+    ◉ 保守与激进的差异主要来自：场地填满速度 · 创业营涨价节奏 · 银行费启动时点 · 微装修投入规模<br>
+    ◉ 建议以保守为执行基线，以激进为冲刺目标
+  </div>
+</div>
+</div>
+
+<!-- ========== SLIDE 8: SECTION 4 ========== -->
+<div class="slide" data-slide="8">
+<div class="slide-inner" style="background: var(--bg); justify-content:center; align-items:center;">
+  <div class="orb" style="width:600px;height:600px;background:rgba(46,167,255,0.06);bottom:-200px;right:-100px;"></div>
+  <!-- Decorative SVG icon -->
+  <svg style="position:absolute;top:60px;left:100px;opacity:0.05;" width="200" height="200" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1"><circle cx="12" cy="8" r="6"/><path d="M12 4v4l3 3"/></svg>
+  <div style="text-align:center;">
+    <div class="section-number c-blue">04</div>
+    <div class="section-part" style="color:var(--text-dim);">PART FOUR</div>
+    <div class="accent-line bg-blue" style="margin:20px auto;"></div>
+    <h2 class="section-heading">合作模式</h2>
+    <p style="font-size:24px;color:var(--text-sub);margin-top:20px;">运营主体与治理设计</p>
+  </div>
+</div>
+</div>
+
+<!-- ========== SLIDE 10: EQUITY STRUCTURE ========== -->
+<div class="slide" data-slide="10">
+<div class="slide-inner" style="background: var(--bg);">
+  <div class="section-label c-blue">PART FOUR · EQUITY STRUCTURE</div>
+  <h2 class="slide-title">运营主体股权架构方案</h2>
+  <p style="font-size:16px;color:var(--text-dim);margin-bottom:24px;">⚠ 仅指运营层（孵化器运营管理公司），投资层基金权益单独谈</p>
+  <div style="display:flex;gap:24px;width:100%;">
+    <!-- Plan A: Original -->
+    <div class="card" style="flex:1;border-color:rgba(147,129,255,0.2);">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+        <span class="c-purple" style="font-size:24px;font-weight:800;">方案A</span>
+        <span style="font-size:16px;color:var(--text-sub);">无期权方案</span>
+      </div>
+      <div class="card-accent bg-purple"></div>
+      <table style="width:100%;border-collapse:collapse;font-size:16px;">
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.08);">
+          <td style="padding:12px 0;"><strong>创凌通科技</strong><div style="font-size:13px;color:var(--text-sub);">业主方 / 控股股东</div></td>
+          <td style="padding:12px 0;text-align:right;font-size:28px;font-weight:800;color:var(--purple);">55%</td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.08);">
+          <td style="padding:12px 0;"><strong>联创工作室</strong><div style="font-size:13px;color:var(--text-sub);">运营 / 方法论方</div></td>
+          <td style="padding:12px 0;text-align:right;font-size:28px;font-weight:800;color:var(--blue);">30%</td>
+        </tr>
+        <tr>
+          <td style="padding:12px 0;"><strong>外部投资人</strong><div style="font-size:13px;color:var(--text-sub);">资本 + 资源</div></td>
+          <td style="padding:12px 0;text-align:right;font-size:28px;font-weight:800;color:var(--blue);">15%</td>
+        </tr>
+      </table>
+      <div style="margin-top:16px;padding:14px;background:rgba(255,107,107,0.06);border-radius:8px;font-size:14px;">
+        <strong style="color:#ff6b6b;">⚠ 风险</strong><br>
+        <span style="color:var(--text-body);">场地不做为现金成本，创凌通拿"55%控股+差价双重收益"，联创仅30%偏轻。团队无ESOP，留不住人。</span>
+      </div>
+    </div>
+    <!-- Plan B: Suggested -->
+    <div class="card" style="flex:1;border-color:rgba(46,167,255,0.25);">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+        <span class="c-blue" style="font-size:24px;font-weight:800;">方案B</span>
+        <span style="font-size:16px;color:var(--text-sub);">含期权方案</span>
+      </div>
+      <div class="card-accent bg-blue"></div>
+      <table style="width:100%;border-collapse:collapse;font-size:16px;">
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.08);">
+          <td style="padding:12px 0;"><strong>创凌通科技</strong><div style="font-size:13px;color:var(--text-sub);">控股并表，河套认定主体</div></td>
+          <td style="padding:12px 0;text-align:right;font-size:28px;font-weight:800;color:var(--blue);">51%</td>
+        </tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.08);background:rgba(147,129,255,0.05);">
+          <td style="padding:12px 0;">
+            <strong>联创工作室</strong><div style="font-size:13px;color:var(--text-sub);">利润引擎：服务费345万/2年</div>
+            <div style="margin-top:10px;padding-left:16px;border-left:2px solid rgba(147,129,255,0.4);">
+              <div style="padding:4px 0;font-size:14px;color:var(--text-body);">└ 联创实得 <span style="font-weight:700;color:var(--purple);">24%</span></div>
+              <div style="padding:4px 0;font-size:14px;color:var(--text-body);">└ 运营团队 ESOP <span style="font-weight:700;color:var(--blue);">10%</span><span style="font-size:12px;color:var(--text-dim);">（含于34%内，联创代持/未来增发）</span></div>
+            </div>
+          </td>
+          <td style="padding:12px 0;text-align:right;font-size:28px;font-weight:800;color:var(--purple);vertical-align:top;">34%</td>
+        </tr>
+        <tr>
+          <td style="padding:12px 0;"><strong>外部投资人</strong><div style="font-size:13px;color:var(--text-sub);">现金 + 战略资源</div></td>
+          <td style="padding:12px 0;text-align:right;font-size:28px;font-weight:800;color:var(--blue);">15%</td>
+        </tr>
+      </table>
+      <div style="margin-top:16px;padding:14px;background:rgba(46,167,255,0.06);border-radius:8px;font-size:14px;">
+        <strong style="color:var(--blue);">✓ 优势</strong><br>
+        <span style="color:var(--text-body);">创凌通控股且并表，联创作为利润引擎拿够，团队有上升通道（ESOP 含于联创34%内，不额外稀释其他股东），外部留15%引资源。</span>
+      </div>
+    </div>
+  </div>
+  <p style="margin-top:16px;font-size:14px;color:var(--text-dim);text-align:center;width:100%;">*运营团队 ESOP 10% 含于联创工作室 34% 之内（联创实得24% + ESOP10%），由联创代持或未来增发实现，不额外稀释创凌通与外部投资人。启动资金90-120万按股比认缴（场地差价属商业安排，不计入注册资本）。</p>
+</div>
+</div>
+
+<!-- ========== SLIDE 11: GOVERNANCE ========== -->
+<div class="slide" data-slide="11">
+<div class="slide-inner" style="background: var(--bg);">
+  <div class="section-label c-blue">PART FOUR · GOVERNANCE</div>
+  <h2 class="slide-title">治理结构</h2>
+  <div style="display:flex;gap:24px;width:100%;">
+    <!-- Governance -->
+    <div class="card" style="flex:1;border-color:rgba(46,167,255,0.15);">
+      <div class="card-accent bg-blue"></div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span class="c-blue" style="font-size:14px;font-weight:700;min-width:80px;">控制权</span>
+          <span style="font-size:15px;color:var(--text-body);">创凌通51%享重大事项否决/一票（增资、解散、核心资产处置、章程修改）</span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span class="c-purple" style="font-size:14px;font-weight:700;min-width:80px;">日常经营</span>
+          <span style="font-size:15px;color:var(--text-body);">联创委派总经理/COO，负责项目筛选、团队任免、服务费机制</span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span class="c-blue" style="font-size:14px;font-weight:700;min-width:80px;">不干涉</span>
+          <span style="font-size:15px;color:var(--text-body);">创凌通不参与具体项目判断与日常运营，仅作为业主与资源方</span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span class="c-blue" style="font-size:14px;font-weight:700;min-width:80px;">外部股东</span>
+          <span style="font-size:15px;color:var(--text-body);">知情权 + 反稀释 + 优先认购，不介入经营</span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <span class="c-purple" style="font-size:14px;font-weight:700;min-width:80px;">政策申报</span>
+          <span style="font-size:15px;color:var(--text-body);">运营主体统一操盘河套认定/补贴，创凌通配合场地证明</span>
+        </div>
+      </div>
+      <div style="margin-top:16px;padding:14px;background:rgba(46,167,255,0.08);border-radius:8px;font-size:14px;">
+        <strong class="c-blue">河套合规</strong>：运营主体须满足131标准级/卓越级条件，认定准备从运营第一年对标。认定补助150万+评价优秀50万归运营主体。
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ========== SLIDE 18: SECTION 5 (HIDDEN) ========== -->
+<div class="slide" data-slide="18">
+<div class="slide-inner" style="background: var(--bg); justify-content:center; align-items:center;">
+  <div class="orb" style="width:600px;height:600px;background:rgba(19,221,196,0.06);top:-200px;left:-100px;"></div>
+  <div style="text-align:center;">
+    <div class="section-number c-green">05</div>
+    <div class="section-part" style="color:var(--text-dim);">PART FIVE</div>
+    <div class="accent-line bg-green" style="margin:20px auto;"></div>
+    <h2 class="section-heading">五点具体落地措施</h2>
+    <p style="font-size:24px;color:var(--text-sub);margin-top:20px;">众筹前投资 · 标准化条款 · 凯宾IP · 香港团队 · ABC体系</p>
+  </div>
+</div>
+</div>
+
+<!-- ========== SLIDE 19: MEASURES 1-3 (HIDDEN) ========== -->
+<div class="slide" data-slide="19">
+<div class="slide-inner" style="background: var(--bg);">
+  <div class="section-label c-green">PART FIVE · MEASURES 1-3</div>
+  <h2 class="slide-title">众筹前投资 · 标准化条款 · 凯宾IP</h2>
+  <div style="display:flex;gap:24px;width:100%;">
+    <div class="card" style="flex:1;border-color:rgba(46,167,255,0.15);">
+      <div class="card-number c-blue">01</div>
+      <div class="card-accent bg-blue"></div>
+      <div class="card-title">众筹前投资</div>
+      <div class="card-body">
+        重点筛选还没有发布第一款产品的团队<br><br>
+        <strong>全流程服务</strong>：<br>
+        产品定位（凯宾）→ 众筹页面和视频（GOC/颜城）→ KOL投放和社群（易势）→ 定价和物流（运营团队）<br><br>
+        <strong>投资在众筹前进入</strong><br>
+        众筹成功 → 收回成本 + 保留2-3%股份<br>
+        或按新轮次估值追加投资<br><br>
+        <span style="color:var(--text-dim);">参考奇绩：7%换约30万美金，无对赌无回购</span>
+      </div>
+    </div>
+    <div class="card" style="flex:1;border-color:rgba(147,129,255,0.15);">
+      <div class="card-number c-purple">02</div>
+      <div class="card-accent bg-purple"></div>
+      <div class="card-title">标准化投资条款</div>
+      <div class="card-body">
+        不要每个项目都谈一轮条款<br><br>
+        <table style="width:100%;font-size:15px;border-collapse:collapse;">
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.08);"><td style="padding:6px 0;font-weight:600;color:var(--purple);">种子A档</td><td style="padding:6px 0;">100万 / 3%</td></tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.08);"><td style="padding:6px 0;font-weight:600;color:var(--purple);">种子B档</td><td style="padding:6px 0;">200万 / 7%</td></tr>
+          <tr><td style="padding:6px 0;font-weight:600;color:var(--purple);">天使轮</td><td style="padding:6px 0;">500万 / 5%</td></tr>
+        </table>
+        <br>
+        <strong>无对赌 · 无回购 · 不拿董事席</strong><br><br>
+        <span style="color:var(--text-dim);">信任是前提，条款是底线</span>
+      </div>
+    </div>
+    <div class="card" style="flex:1;border-color:rgba(19,221,196,0.15);">
+      <div class="card-number c-green">03</div>
+      <div class="card-accent bg-green"></div>
+      <div class="card-title">凯宾IP</div>
+      <div class="card-body">
+        <strong style="color:var(--green);">广度</strong><br>
+        每期创业营3天品类定位集训<br>
+        面向10-15家团队，每年4期覆盖40-60个团队<br><br>
+        <strong style="color:var(--green);">深度</strong><br>
+        A类项目每周参与讨论<br>
+        深度介入产品定义<br><br>
+        <strong style="color:var(--green);">内容输出</strong><br>
+        出海选品方法论 · 众筹避坑指南 · 品类定位实战案例<br><br>
+        <span style="color:var(--text-dim);">接地气的实战派，不学宏大叙事</span>
+      </div>
+    </div>
+  </div>
+  <p style="margin-top:20px;font-size:16px;color:var(--text-dim);text-align:center;width:100%;">差异化的核心：帮硬件团队从0到1做出第一款产品，推到海外众筹</p>
+</div>
+</div>
+
+<!-- ========== SLIDE 20: MEASURES 4-5 (HIDDEN) ========== -->
+<div class="slide" data-slide="20">
+<div class="slide-inner" style="background: var(--bg);">
+  <div class="section-label c-green">PART FIVE · MEASURES 4-5</div>
+  <h2 class="slide-title">香港团队引入 · ABC三级入驻体系</h2>
+  <div style="display:flex;gap:24px;width:100%;">
+    <div class="card" style="flex:1;border-color:rgba(46,167,255,0.15);">
+      <div class="card-number c-blue">04</div>
+      <div class="card-accent bg-blue"></div>
+      <div class="card-title">重点吸引香港团队</div>
+      <div class="card-body">
+        <strong>目标人群</strong><br>
+        港大/港中文/港科大/港理工创业团队；高才通来港的海外人才；有香港身份的留学生回国创业<br><br>
+        <strong>获客渠道</strong><br>
+        • 和香港高校创业中心/技术转移办公室建立合作<br>
+        • 每季度去香港做路演/分享会（凯宾主讲）<br>
+        • 和数码港、科学园创业计划对接<br>
+        • 每期创业营安排一次香港研学日<br><br>
+        <strong>政策卖点</strong><br>
+        企业所得税15%（香港16.5%）+ 个税差额免征 + 深圳供应链红利<br><br>
+        <span style="color:var(--text-dim);">河套不是来深圳，是来一个税负和香港差不多的地方</span>
+      </div>
+    </div>
+    <div class="card" style="flex:1;border-color:rgba(19,221,196,0.15);">
+      <div class="card-number c-green">05</div>
+      <div class="card-accent bg-green"></div>
+      <div class="card-title">ABC三级入驻体系</div>
+      <div class="card-body">
+        <strong style="color:var(--blue);">A类怎么选？</strong> 邀请制，主动发掘。标准：跨境经验 + AI+硬件+出海 + 团队≥2人。6个月无进展降B<br><br>
+        <strong style="color:var(--purple);">B类怎么升A？</strong> 完成任意一项：众筹上线达标 / 完成外部融资 / 量产交付且亚马逊≥4.5<br><br>
+        <strong style="color:var(--green);">C类的作用</strong> 观察+筛选，正常交租、参加创业营。每季度路演，通过升B<br><br>
+        <table style="width:100%;font-size:14px;border-collapse:collapse;">
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.08);">
+            <td style="padding:6px;font-weight:700;color:var(--blue);">A类 10%</td>
+            <td style="padding:6px;">租金免 · 股权回报</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.08);">
+            <td style="padding:6px;font-weight:700;color:var(--purple);">B类 20%</td>
+            <td style="padding:6px;">租金折让 + 投资 + 服务费</td>
+          </tr>
+          <tr>
+            <td style="padding:6px;font-weight:700;color:var(--green);">C类 70%</td>
+            <td style="padding:6px;">租金收入 · 撑人气</td>
+          </tr>
+        </table>
+        <br>
+        <span style="color:var(--text-dim);">C养场子 · B养团队 · A博回报</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ========== SLIDE 21: MEETING CONCLUSIONS (HIDDEN) ========== -->
+<div class="slide" data-slide="21">
+<div class="slide-inner" style="background: var(--bg);">
+  <div class="section-label c-blue">MEETING CONCLUSIONS</div>
+  <h2 class="slide-title">会议结论清单</h2>
+  <p style="font-size:18px;color:var(--text-sub);margin-bottom:24px;">本次会议已确认事项 · 及仍需三方落地推进的待办</p>
+  <div style="display:flex;gap:24px;width:100%;">
+    <div class="card" style="flex:1;padding:24px;">
+      <div style="font-size:15px;font-weight:700;color:var(--green);margin-bottom:14px;">✓ 本次会议已确认</div>
+      <div class="action-item"><span class="action-num" style="background:rgba(19,221,196,0.18);color:var(--green);">A1</span><span class="action-text"><strong>合作模式</strong>：确定采用「模式一 · 深度融合」，成立合资运营公司</span></div>
+      <div class="action-item"><span class="action-num" style="background:rgba(19,221,196,0.18);color:var(--green);">A2</span><span class="action-text"><strong>股权架构</strong>：方案B——创凌通51% / 联创34%(含ESOP10%) / 外部15%</span></div>
+      <div class="action-item"><span class="action-num" style="background:rgba(19,221,196,0.18);color:var(--green);">A3</span><span class="action-text"><strong>孵化器定位</strong>：AI + 消费硬件 + 出海，河套深港合作区</span></div>
+      <div class="action-item"><span class="action-num" style="background:rgba(19,221,196,0.18);color:var(--green);">A4</span><span class="action-text"><strong>在孵主题</strong>：AI+硬件五大方向（宠物/睡眠/陪伴/小家电/银发）</span></div>
+      <div class="action-item"><span class="action-num" style="background:rgba(19,221,196,0.18);color:var(--green);">A5</span><span class="action-text"><strong>运营机制</strong>：双周例会 · 三层九岗 · 季度路演升B</span></div>
+      <div class="action-item" style="border:none;"><span class="action-num" style="background:rgba(19,221,196,0.18);color:var(--green);">A6</span><span class="action-text"><strong>现金流</strong>：补贴后运营24个月转正，首年缺口约60万</span></div>
+    </div>
+    <div class="card" style="flex:1;padding:24px;">
+      <div style="font-size:15px;font-weight:700;color:var(--blue);margin-bottom:14px;">⏳ 仍需三方推进</div>
+      <div class="action-item"><span class="action-num">01</span><span class="action-text"><strong>基金LPA</strong>：亿合何时起草？管理费5%、Carry三方确认</span></div>
+      <div class="action-item"><span class="action-num">02</span><span class="action-text"><strong>锚定LP</strong>：金鹏佳出资金额与比例确认</span></div>
+      <div class="action-item highlight"><span class="action-num">03</span><span class="action-text"><strong>运营团队</strong>：首年5核心岗招聘、运营负责人到位</span></div>
+      <div class="action-item highlight"><span class="action-num">04</span><span class="action-text"><strong>启动资金</strong>：管理费划拨比例、河套补贴申报节点</span></div>
+      <div class="action-item"><span class="action-num">05</span><span class="action-text"><strong>生态合伙人</strong>：颜城/Jean/易势协议签署时间</span></div>
+      <div class="action-item"><span class="action-num">06</span><span class="action-text"><strong>河套申报</strong>：牵头人 + 首年申报清单</span></div>
+      <div class="action-item"><span class="action-num">07</span><span class="action-text"><strong>首期创业营</strong>：今年Q4能否开营</span></div>
+      <div class="action-item" style="border:none;"><span class="action-num highlight">08</span><span class="action-text"><strong>第一年预算</strong>：总计约510-790万，三方各自承担</span></div>
+      <div style="margin-top:16px;padding:14px;background:rgba(46,167,255,0.08);border-radius:8px;">
+        <strong class="c-blue">下一步核心</strong><br>
+        <span style="font-size:14px;color:var(--text-body);">基金落地 · 运营团队搭建 · 第一年预算分摊 · 河套补贴申报启动</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ========== SLIDE 22: CLOSING ========== -->
+<div class="slide dark" data-slide="22">
+<div class="slide-inner" style="background: var(--bg); justify-content:center; align-items:center;">
+  <div class="orb" style="width:500px;height:500px;background:rgba(46,167,255,0.08);top:50px;right:200px;"></div>
+  <div class="orb" style="width:400px;height:400px;background:rgba(147,129,255,0.06);bottom:50px;left:100px;"></div>
+  <div class="orb" style="width:300px;height:300px;background:rgba(19,221,196,0.05);bottom:150px;right:300px;"></div>
+  <div style="text-align:center;">
+    <div style="width:200px;height:3px;background:rgba(46,167,255,0.6);margin:0 auto 20px;border-radius:2px;"></div>
+    <div class="section-label c-blue" style="letter-spacing:4px;">DISCUSSION TIME</div>
+    <h1 style="font-size:76px;font-weight:800;margin:20px 0;">讨论时间</h1>
+    <p style="font-size:40px;font-weight:400;color:var(--text-sub);margin-bottom:16px;">创凌通科技 × 初海联创</p>
+    <p style="font-size:24px;color:var(--text-dim);">孵化器合作方案 · 会议讨论稿</p>
+  </div>
+  <div class="bottom-bar"></div>
+</div>
+</div>
+
+</div><!-- /app -->
+
+<!-- Navigation -->
+<div class="nav-bar">
+  <button class="nav-btn" onclick="prevSlide()" title="上一页">‹</button>
+  <div class="nav-dots" id="dots"></div>
+  <span class="nav-counter" id="counter">1 / 14</span>
+  <button class="nav-btn" onclick="nextSlide()" title="下一页">›</button>
+  <button class="nav-fullscreen" onclick="toggleFullscreen()" title="全屏">⛶</button>
+</div>
+
+
+</body>
+</html>

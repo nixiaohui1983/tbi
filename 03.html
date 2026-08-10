@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<!-- saved from url=(0207)file:///Users/hugo/WorkBuddy/2026-08-10-17-09-58/%E6%B7%B1%E5%9C%B3%E4%B8%89%E5%A4%A7%E5%8C%BA%E5%88%9B%E4%B8%9A%E5%9B%AD%E5%8C%BA%E7%A7%9F%E9%87%91%E4%B8%8E%E6%94%BF%E7%AD%96%E5%AF%B9%E6%AF%94%E8%A1%A8.html -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>深圳三大区创业园区租金与政策对比表</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    line-height: 1.7;
+    padding: 40px 20px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  h1 {
+    font-size: 28px;
+    color: #1a1a2e;
+    text-align: center;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  .subtitle {
+    text-align: center;
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 40px;
+  }
+
+  /* Summary Cards */
+  .summary-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  .summary-card {
+    border-radius: 12px;
+    padding: 24px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .summary-card.ns { background: linear-gradient(135deg, #667eea, #764ba2); }
+  .summary-card.ba { background: linear-gradient(135deg, #0ba360, #3cba92); }
+  .summary-card.ft { background: linear-gradient(135deg, #d65656, #e87171); }
+  .summary-card h3 { font-size: 18px; margin-bottom: 12px; }
+  .summary-card .highlight { font-size: 32px; font-weight: 700; margin-bottom: 4px; }
+  .summary-card .desc { font-size: 13px; opacity: 0.9; }
+  .summary-card ul { list-style: none; margin-top: 12px; font-size: 13px; }
+  .summary-card ul li { padding: 3px 0; opacity: 0.95; }
+  .summary-card ul li::before { content: "▸ "; opacity: 0.6; }
+
+  /* Main Table */
+  .table-wrapper {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    margin-bottom: 40px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead tr {
+    background: #1a1a2e;
+    color: #fff;
+  }
+  thead th {
+    padding: 14px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  thead th:first-child { width: 130px; }
+  tbody td {
+    padding: 12px;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: top;
+  }
+  tbody tr:nth-child(even) { background: #fafbfc; }
+  tbody tr:hover { background: #f0f4ff; }
+  .district-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+  }
+  .tag-ns { background: #764ba2; }
+  .tag-ba { background: #0ba360; }
+  .tag-ft { background: #d65656; }
+
+  .park-name { font-weight: 600; color: #1a1a2e; }
+  .rent-info { color: #e74c3c; font-weight: 600; }
+  .rent-info .sub { color: #7f8c8d; font-weight: 400; font-size: 12px; }
+  .policy-text { font-size: 12px; color: #555; }
+  .policy-text strong { color: #2c3e50; }
+  .source-link {
+    font-size: 12px;
+    color: #3498db;
+    text-decoration: none;
+    word-break: break-all;
+  }
+  .source-link:hover { text-decoration: underline; }
+
+  /* Policy Comparison Section */
+  .section-title {
+    font-size: 22px;
+    color: #1a1a2e;
+    margin-bottom: 20px;
+    padding-left: 12px;
+    border-left: 4px solid #667eea;
+  }
+  .policy-table-wrapper {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    margin-bottom: 40px;
+  }
+  .policy-table th { background: #2c3e50; }
+  .policy-table td:first-child { font-weight: 600; color: #2c3e50; width: 140px; }
+
+  /* Sources Section */
+  .sources-section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px 30px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+  }
+  .sources-section h3 {
+    font-size: 16px;
+    color: #1a1a2e;
+    margin-bottom: 12px;
+  }
+  .sources-section ol {
+    padding-left: 20px;
+    font-size: 13px;
+    color: #555;
+  }
+  .sources-section ol li {
+    margin-bottom: 6px;
+  }
+  .sources-section ol li a {
+    color: #3498db;
+    text-decoration: none;
+    word-break: break-all;
+  }
+  .sources-section ol li a:hover { text-decoration: underline; }
+
+  .footer-note {
+    text-align: center;
+    color: #aaa;
+    font-size: 12px;
+    margin-top: 30px;
+    padding: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .summary-cards { grid-template-columns: 1fr; }
+    table { font-size: 12px; }
+    thead th, tbody td { padding: 8px 6px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>深圳三大区创业园区租金与政策对比</h1>
+  <p class="subtitle">南山区 · 宝安区 · 福田区 | 数据更新至 2025 年 | 点击链接查看原文</p>
+
+  <!-- Summary Cards -->
+  <div class="summary-cards">
+    <div class="summary-card ns">
+      <h3>南山区</h3>
+      <div class="highlight">30-70%</div>
+      <div class="desc">政策性产业用房租金为市场价的 30%-70%</div>
+      <ul>
+        <li>最高2年免租（模力营/零租加速营）</li>
+        <li>5亿元种子+天使基金</li>
+        <li>青年领航团队最高2000万支持</li>
+        <li>本科3万/硕士5万落户补贴</li>
+      </ul>
+    </div>
+    <div class="summary-card ba">
+      <h3>宝安区</h3>
+      <div class="highlight">3-12月</div>
+      <div class="desc">"无忧空间"免租期，部分园区最高2年免租</div>
+      <ul>
+        <li>34家区级创业孵化基地</li>
+        <li>大学生场租补贴最高1560元/月</li>
+        <li>2.15万㎡"无忧空间"+666个梦想卡座</li>
+        <li>租金35-100元/㎡/月（市场价）</li>
+      </ul>
+    </div>
+    <div class="summary-card ft">
+      <h3>福田区</h3>
+      <div class="highlight">10万㎡</div>
+      <div class="desc">分批推出孵化器空间，首年免租</div>
+      <ul>
+        <li>1000+免费创业卡座</li>
+        <li>优质创业项目最高500万资助</li>
+        <li>100亿耐心资本+200亿融资池</li>
+        <li>成长型企业最低市场价3折承租</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Main Comparison Table: Parks -->
+  <h2 class="section-title">一、主要创业园区/孵化器租金对比</h2>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>所在区</th>
+          <th>园区/孵化器名称</th>
+          <th>租金水平（元/㎡/月）</th>
+          <th>免租/优惠政策</th>
+          <th>主要产业方向</th>
+          <th>数据来源</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 南山区 -->
+        <tr>
+          <td><span class="district-tag tag-ns">南山区</span></td>
+          <td class="park-name">科兴科学园三期<br><span style="font-size:11px;color:#999;">（创新型产业用房）</span></td>
+          <td class="rent-info">均价 60<span class="sub">（政策性）</span><br>市场价约 100-118<span class="sub">（2025年成交价）</span></td>
+          <td class="policy-text">3个月装修免租期；租期3年；<strong>"数字经济"资质企业租300㎡以上享3年20%-30%租金补贴</strong></td>
+          <td>高科技、游戏、数字经济</td>
+          <td><a class="source-link" href="https://szbay.com/News/Detail/4897" target="_blank">创科园区租赁公告</a><br><a class="source-link" href="https://www.163.com/dy/article/K5LB630B0515AUFE.html" target="_blank">壹地产实探报道</a></td>
+        </tr>
+        <tr>
+          <td><span class="district-tag tag-ns">南山区</span></td>
+          <td class="park-name">高技术示范大厦</td>
+          <td class="rent-info">65<span class="sub">（政策性产业用房）</span></td>
+          <td class="policy-text">3个月装修免租期；租期3年；位于滨海大道3366号</td>
+          <td>研发办公</td>
+          <td><a class="source-link" href="https://sqzc.gd.gov.cn/sqzc/m/cms/publicity/publicityInfo?id=nfsheqigsxx12562876" target="_blank">广东社区网公告</a></td>
+        </tr>
+        <tr>
+          <td><span class="district-tag tag-ns">南山区</span></td>
+          <td class="park-name">模力营 AI 生态社区</td>
+          <td class="rent-info">免租 → 市场价 3-7 折</td>
+          <td class="policy-text"><strong>入驻团队最高2年免租</strong>；免租期满后入驻政策性产业研发用房，享市场租金3-7折优惠；超5万㎡创新研发空间</td>
+          <td>人工智能</td>
+          <td><a class="source-link" href="https://www.szns.gov.cn/ztzl/slh/jryw/content/post_12089077.html" target="_blank">南山区政府官网</a></td>
+        </tr>
+        <tr>
+          <td><span class="district-tag tag-ns">南山区</span></td>
+          <td class="park-name">零租加速营 2.0</td>
+          <td class="rent-info">免租 → 市场价 3-7 折</td>
+          <td class="policy-text"><strong>最低3-6个月、最高无上限免租</strong>；免租期满后续租享市场租金3-7折；超5万㎡社会孵化空间</td>
+          <td>战略性新兴产业</td>
+          <td><a class="source-link" href="https://www.szns.gov.cn/ztzl/slh/jryw/content/post_12089077.html" target="_blank">南山区政府官网</a></td>
+        </tr>
+        <tr>
+          <td><span class="district-tag tag-ns">南山区</span></td>
+          <td class="park-name">游戏产业合作园<br><span style="font-size:11px;color:#999;">（科兴科学园内）</span></td>
+          <td class="rent-info">最低 50<span class="sub">（综合补贴后）</span></td>
+          <td class="policy-text">园区最高补贴40% + 政府叠加最高40%配套补贴；总规模5万㎡</td>
+          <td>游戏产业</td>
+          <td><a class="source-link" href="https://www.szns.gov.cn/ztzl/slh/jryw/content/post_12723993.html" target="_blank">南山区政府官网</a></td>
+        </tr>
+        
+        
+
+        <!-- 宝安区 -->
+        <tr>
+          <td><span class="district-tag tag-ba">宝安区</span></td>
+          <td class="park-name">"无忧空间"（首批13家载体）</td>
+          <td class="rent-info">免租 3-12 个月</td>
+          <td class="policy-text"><strong>16800㎡场地 + 360+卡座</strong>；涵盖汇智研发中心、众里创新社区、北大科创园等13家载体；配套政策辅导、产业服务、金融链接</td>
+          <td>AI/机器人/灵巧手等前沿领域</td>
+          <td><a class="source-link" href="https://www.sznews.com/news/content/2025-03/10/content_31483786.htm" target="_blank">深圳新闻网报道</a><br><a class="source-link" href="https://new.qq.com/rain/a/20250308A03J1I00" target="_blank">腾讯新闻报道</a></td>
+        </tr>
+        <tr>
+          <td><span class="district-tag tag-ba">宝安区</span></td>
+          <td class="park-name">宝安区"零租"空间</td>
+          <td class="rent-info">最高 2 年免租</td>
+          <td class="policy-text">面向AI、智能机器人、灵巧手等前沿产业领域推出；<strong>入驻企业最高享2年免租优惠</strong></td>
+          <td>AI/智能机器人/灵巧手</td>
+          <td><a class="source-link" href="https://www.baoan.gov.cn/rlzyj/zwgk/jyta/rdjy/content/post_12436455.html" target="_blank">宝安区人力资源局答复函</a></td>
+        </tr>
+        <tr>
+          <td><span class="district-tag tag-ba">宝安区</span></td>
+          <td class="park-name">汇智研发中心</td>
+          <td class="rent-info">35-56<span class="sub">（甲级写字楼）</span></td>
+          <td class="policy-text">深圳市首个"专精特新"总部基地；114-2175㎡可选；免租期30-90天；物业费6元/㎡/月</td>
+          <td>5G/工业互联网/智能制造</td>
+          <td><a class="source-link" href="https://huizhiyanfazhongxin.cn/" target="_blank">汇智研发中心官网</a></td>
+        </tr>
+        <tr>
+          <td><span class="district-tag tag-ba">宝安区</span></td>
+          <td class="park-name">深业U中心</td>
+          <td class="rent-info">招租底价 55<span class="sub">（每年递增3%）</span></td>
+          <td class="policy-text">3个月免租期；租期5年；宝安产投园区运营</td>
+          <td>研发办公</td>
+          <td><a class="source-link" href="https://gd.zhiliaobiaoxun.com/article/84951873" target="_blank">招标公告</a></td>
+        </tr>
+        <tr>
+          <td><span class="district-tag tag-ba">宝安区</span></td>
+          <td class="park-name">众里创新社区·兴东</td>
+          <td class="rent-info">60-100<span class="sub">（含税）</span></td>
+          <td class="policy-text">国家级科技企业孵化器；98-2000㎡灵活分割；15-45天装修免租；物业费仅5元/㎡/月</td>
+          <td>科技企业孵化</td>
+          <td><a class="source-link" href="https://www.dongdongzu.com/news/81656" target="_blank">咚咚租楼盘简介</a></td>
+        </tr>
+        
+        <tr>
+          <td><span class="district-tag tag-ba">宝安区</span></td>
+          <td class="park-name">福海国际科技园</td>
+          <td class="rent-info">约 37<span class="sub">（含补贴）</span></td>
+          <td class="policy-text">宝安区科技桃花源认定园区；专业团队协助申请补贴；人才公寓+配套商业</td>
+          <td>新材料/新能源</td>
+          <td><a class="source-link" href="https://sz.886cf.com/xzllist-sz-baoanq-fuyongjd/48299.html" target="_blank">886写字楼网</a></td>
+        </tr>
+
+        <!-- 福田区 -->
+        
+        
+        <tr>
+          <td><span class="district-tag tag-ft">福田区</span></td>
+          <td class="park-name">阿里云创新中心（深圳福田）<br><span style="font-size:11px;color:#999;">（政府主导零租孵化器）</span></td>
+          <td class="rent-info">0 元/㎡/月<span class="sub">（最长2年免租）</span></td>
+          <td class="policy-text"><strong>5,277㎡，360个工位</strong>；拎包入住；免租期满后按创新型产业用房政策续租；位于新一代产业园4栋17-18F；科技项目奖补最高2000万元</td>
+          <td>大数据/科技金融/芯片</td>
+          <td><a class="source-link" href="https://chuangke.aliyun.com/incubator/detail/87" target="_blank">阿里云创业孵化平台</a><br><a class="source-link" href="https://m.dutenews.com/n/ctmedia/724934" target="_blank">读特新闻报道</a></td>
+        </tr>
+        <tr>
+          <td><span class="district-tag tag-ft">福田区</span></td>
+          <td class="park-name">X-HUB 模力福地产业孵化中心<br><span style="font-size:11px;color:#999;">（新洲·政府主导零租）</span></td>
+          <td class="rent-info">0 元/㎡/月<span class="sub">（最长2年免租）</span></td>
+          <td class="policy-text"><strong>约1.1万㎡</strong>；拎包入住；毗邻河套合作区；WAEA世界AI眼镜联盟首批入驻；配套会议室/绿岛休憩区/共享服务站；联合东方富海/松禾创投等十余家投资机构</td>
+          <td>AI+/智慧医疗/生物医药/具身智能</td>
+          <td><a class="source-link" href="https://new.qq.com/rain/a/20260329A0555S00" target="_blank">腾讯新闻报道</a><br><a class="source-link" href="https://www.szfii.cn/" target="_blank">福田产投官网</a></td>
+        </tr>
+        
+        <tr>
+          <td><span class="district-tag tag-ft">福田区</span></td>
+          <td class="park-name">天使荟·千模应用加速器<br><span style="font-size:11px;color:#999;">（福田区政府+深天使共建·初创/成长）</span></td>
+          <td class="rent-info">补贴后约 34<span class="sub">元/㎡/月</span><br>符合条件可享 6个月至3年免租</td>
+          <td class="policy-text"><strong>约10,000㎡，30-500㎡独立办公空间</strong>；独立卡座+路演厅+共享机房等；"金种子"联创计划全程免费；20亿种子母基金+100亿天使母基金；入驻企业总估值超322亿元，18家超1亿美元估值</td>
+          <td>AI/集成电路/智能硬件/软件</td>
+          <td><a class="source-link" href="https://www.sznews.com/news/content/2024-12/31/content_31418693.htm" target="_blank">深圳新闻网报道</a><br><a class="source-link" href="https://new.qq.com/rain/a/20250319A06OQQ00" target="_blank">腾讯新闻·金种子计划</a></td>
+        </tr>
+        <tr>
+          <td><span class="district-tag tag-ft">福田区</span></td>
+          <td class="park-name">梅林AI硬件创新广场<br><span style="font-size:11px;color:#999;">（含"梅创空间""智创谷"孵化器）</span></td>
+          <td class="rent-info">市场价 5%-10% 折扣<span class="sub">（弹性租赁+梯度减租）</span></td>
+          <td class="policy-text"><strong>深圳首个街道级产业空间优惠政策</strong>；面向"一主三辅"方向企业（智能终端为主，金融科技/AI/生活消费为辅）；53个孵化器单元出租率85%；免费使用高标准会议室+商务接待服务</td>
+          <td>AI硬件/智能终端</td>
+          <td><a class="source-link" href="https://k.sina.com.cn/article_5787187353_158f17899020024yc6.html" target="_blank">新浪新闻报道</a></td>
+        </tr>
+        
+        
+        <tr>
+          <td><span class="district-tag tag-ft">福田区</span></td>
+          <td class="park-name">深圳新一代产业园</td>
+          <td class="rent-info">约 110<span class="sub">（市场价）</span><br>最低市场价 3 折<span class="sub">（成长型企业）</span></td>
+          <td class="policy-text">深圳市首批"软件名园"；40万㎡总建筑面积；6栋5A甲级写字楼；成长型企业可承租最高2万㎡</td>
+          <td>5G/智能科技/金融科技</td>
+          <td><a class="source-link" href="https://www.dongdongzu.com/building/info2244" target="_blank">咚咚租楼盘信息</a><br><a class="source-link" href="https://hkcd.com/newsTopic_content.php?id=8728967" target="_blank">香港商报报道</a></td>
+        </tr>
+        <tr>
+          <td><span class="district-tag tag-ft">福田区</span></td>
+          <td class="park-name">华强科创广场</td>
+          <td class="rent-info">64<span class="sub">（物业费32元/㎡/月）</span></td>
+          <td class="policy-text">43层/200m高；产业研发用房10.3万㎡；北环大道与新洲路交界</td>
+          <td>产业研发</td>
+          <td><a class="source-link" href="https://szszw.com.cn/article/zixun/549.html" target="_blank">深圳写字楼网</a></td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Policy Comparison Table -->
+  <h2 class="section-title">二、三区创业扶持政策对比</h2>
+  <div class="table-wrapper policy-table-wrapper">
+    <table class="policy-table">
+      <thead>
+        <tr>
+          <th>政策维度</th>
+          <th>南山区</th>
+          <th>宝安区</th>
+          <th>福田区</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>免租空间</td>
+          <td>模力营最高2年免租；零租加速营最低3-6个月至无上限免租；求职创业非深户应届生最长15天免租住宿</td>
+          <td>"无忧空间"3-12个月免租（13家载体/1.68万㎡）；前沿产业"零租"空间最高2年免租；666个"梦想卡座"</td>
+          <td>10万㎡孵化器首年免租+后两年折扣；1000+免费创业卡座；近2万㎡零租孵化器最长2年免租</td>
+        </tr>
+        <tr>
+          <td>租金折扣</td>
+          <td>政策性产业用房享市场价30%-70%；游戏产业合作园综合补贴后最低50元/㎡</td>
+          <td>初创企业入驻认定载体享场租补贴：大学生最高1560元/月（第1年），一般创业者最高1200元/月</td>
+          <td>政府物业按市场评估价40%租赁（软件企业）；成长型企业最低市场价3折承租（新一代产业园）</td>
+        </tr>
+        <tr>
+          <td>落户补贴</td>
+          <td>本科最高3万/硕士最高5万；重点产业青年骨干最高60万奖励</td>
+          <td>按深圳市统一政策执行（本科3万/硕士5万）</td>
+          <td>本科最高3万/硕士最高5万；"20+8"重点产业高端紧缺岗位人才最高15万引进支持</td>
+        </tr>
+        <tr>
+          <td>创业资助</td>
+          <td>青年领航团队最高2000万元综合支持；5亿元种子+天使基金（单项目最高100%亏损容忍）</td>
+          <td>初创企业补贴1万元；创业担保贷款个人最高60万/小微企业最高500万</td>
+          <td>优质青年创业项目最高500万元3年期资助；100亿耐心资本+200亿融资支持池</td>
+        </tr>
+        <tr>
+          <td>场租补贴（市级普惠）</td>
+          <td colspan="3" style="text-align:center;">
+            <strong>认定载体内：</strong>大学生/退役军人第1年1560元/月、第2年1300元/月、第3年910元/月；<br>
+            一般创业者第1年1200元/月、第2年1000元/月、第3年700元/月<br>
+            <strong>认定载体外：</strong>大学生/退役军人最高650元/月（每年≤7800元）；一般创业者最高500元/月（每年≤6000元）<br>
+            <span style="font-size:11px;color:#999;">以上为深圳市统一政策，三区均适用</span>
+          </td>
+        </tr>
+        <tr>
+          <td>融资支持</td>
+          <td>5亿元种子+天使基金；鼓励银行推南山专属信贷，目标新增融资1000亿元</td>
+          <td>创业担保贷款贴息（财政贴息50%）；"投资+孵化"模式园区对接资本</td>
+          <td>100亿耐心资本投早投小投硬科技；200亿融资支持池；鼓励银行支持科技型初创企业</td>
+        </tr>
+        <tr>
+          <td>特色政策</td>
+          <td>全国首创流量券、模型券补贴；"X-Day"西丽湖路演社全周期融资对接</td>
+          <td>"1+10+N"侨港澳青年创新创业服务体系；粤港澳大湾区青年创业联盟</td>
+          <td>"千才自主认定"机制（企业自主评1000名福田英才）；离岸人才集聚计划（H类英才）</td>
+        </tr>
+        <tr>
+          <td>政策来源</td>
+          <td><a class="source-link" href="https://www.szns.gov.cn/ztzl/slh/jryw/content/post_12089077.html" target="_blank">"六个一"行动方案</a><br><a class="source-link" href="https://www.sz.gov.cn/zl/gbm/content/post_12080512.html" target="_blank">创新型产业用房管理办法</a></td>
+          <td><a class="source-link" href="https://www.baoan.gov.cn/rlzyj/zwgk/jyta/rdjy/content/post_12436455.html" target="_blank">宝安区人大建议答复</a><br><a class="source-link" href="https://hrss.sz.gov.cn/ztfw/gaojyzt/jycy/lhjysbbt/" target="_blank">创业场租补贴指南</a></td>
+          <td><a class="source-link" href="https://www.szft.gov.cn/ftqfzhggj/gkmlpt/content/12/12295/post_12295687.html" target="_blank">创新型产业用房管理办法</a><br><a class="source-link" href="https://www.sznews.com/news/content/2025-04/13/content_31535560.htm" target="_blank">幸福无忧行动方案</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Data Sources -->
+  <div class="sources-section">
+    <h3>数据来源链接汇总</h3>
+    <ol>
+      <li>南山区人民政府 - <a href="https://www.szns.gov.cn/ztzl/slh/jryw/content/post_12089077.html" target="_blank">支持创新创业"六个一"行动方案</a></li>
+      <li>南山区人民政府 - <a href="https://www.szns.gov.cn/ztzl/slh/jryw/content/post_12723993.html" target="_blank">游戏产业合作园揭牌公告</a></li>
+      <li>深圳市政府 - <a href="https://www.sz.gov.cn/zl/gbm/content/post_12080512.html" target="_blank">南山区创新型产业用房管理办法政策解读</a></li>
+      <li>广东社区网 - <a href="https://sqzc.gd.gov.cn/sqzc/m/cms/publicity/publicityInfo?id=nfsheqigsxx12562876" target="_blank">高技术示范大厦2025年第1批租赁公告</a></li>
+      <li>创科园区 - <a href="https://szbay.com/News/Detail/4897" target="_blank">科兴科学园三期创新型产业用房租赁公告</a></li>
+      <li>网易/壹地产 - <a href="https://www.163.com/dy/article/K5LB630B0515AUFE.html" target="_blank">科兴科学园12小时实录（含租金数据）</a></li>
+      <li>腾讯新闻 - <a href="https://new.qq.com/rain/a/20260406A03NXO00" target="_blank">南山区游戏产业合作园报道</a></li>
+      <li>深圳新闻网 - <a href="https://www.sznews.com/news/content/2025-03/10/content_31483786.htm" target="_blank">宝安区"无忧空间"报道</a></li>
+      <li>腾讯新闻 - <a href="https://new.qq.com/rain/a/20250308A03J1I00" target="_blank">宝安区"无忧空间"首批发布</a></li>
+      <li>宝安区人力资源局 - <a href="https://www.baoan.gov.cn/rlzyj/zwgk/jyta/rdjy/content/post_12436455.html" target="_blank">人大建议答复函（创业孵化政策）</a></li>
+      <li>宝安区人力资源局 - <a href="https://www.baoan.gov.cn/rlzyj/zwgk/jyta/tadf/content/post_12436828.html" target="_blank">政协提案答复函（港澳青年创业）</a></li>
+      <li>深圳市人社局 - <a href="https://hrss.sz.gov.cn/ztfw/gaojyzt/jycy/lhjysbbt/" target="_blank">创业场租补贴政策（市级普惠）</a></li>
+      <li>前海管理局 - <a href="https://www.dpxq.gov.cn/xxgk/zdly/shjz/zcfg/content/post_12491116.html" target="_blank">2025年高校毕业生就业创业政策清单</a></li>
+      <li>深圳HR - <a href="https://www.szhr.com.cn/yfw/zc/pdf/PDF11.pdf" target="_blank">创业场租补贴办事指南（PDF）</a></li>
+      <li>汇智研发中心 - <a href="https://huizhiyanfazhongxin.cn/" target="_blank">汇智研发中心官网</a></li>
+      <li>咚咚租 - <a href="https://www.dongdongzu.com/news/81656" target="_blank">众里创新社区·兴东楼盘简介</a></li>
+      <li>焦点房产 - <a href="https://m.focus.cn/wuzhou/zixun/710a2382188526a4.html" target="_blank">奋达科技桃花源市场分析</a></li>
+      <li>福田区发改局 - <a href="https://www.szft.gov.cn/ftqfzhggj/gkmlpt/content/12/12295/post_12295687.html" target="_blank">福田区创新型产业用房管理办法</a></li>
+      <li>福田区科技和工业信息化局 - <a href="https://www.szft.gov.cn/ftqkjj/gkmlpt/content/11/11690/post_11690879.html" target="_blank">福田区支持软件产业高质量发展若干措施</a></li>
+      <li>福田区人民政府 - <a href="https://www.szft.gov.cn/ftxx/xwdt/ftdt/content/post_12125304.html" target="_blank">福田区"幸福无忧行动方案"</a></li>
+      <li>深圳新闻网 - <a href="https://www.sznews.com/news/content/2025-04/13/content_31535560.htm" target="_blank">福田区青年人才发展政策报道</a></li>
+      <li>香港商报 - <a href="https://hkcd.com/newsTopic_content.php?id=8728967" target="_blank">福田区AI创新力量落地报道</a></li>
+      <li>阿里云创业孵化平台 - <a href="https://chuangke.aliyun.com/incubator/detail/87" target="_blank">阿里云创新中心（深圳福田）详情</a></li>
+      <li>读特新闻 - <a href="https://m.dutenews.com/n/ctmedia/724934" target="_blank">福田诚邀AI创新力量扎根生长</a></li>
+      <li>读特新闻 - <a href="https://m.dutenews.com/n/ctmedia/678181" target="_blank">"模力福地"双平台（奥斯比千模加速器）报道</a></li>
+      <li>网易/南方都市报 - <a href="https://www.163.com/dy/article/K59581Q505129QAF.html" target="_blank">奥斯比千模加速器启用报道</a></li>
+      <li>腾讯新闻 - <a href="https://new.qq.com/rain/a/20260329A0555S00" target="_blank">X-HUB模力福地首场路演报道</a></li>
+      <li>福田产投官网 - <a href="https://www.szfii.cn/" target="_blank">深圳市福田产业投资服务有限公司</a></li>
+      <li>深圳新闻网 - <a href="https://www.sznews.com/news/content/2024-12/31/content_31418693.htm" target="_blank">天使荟·千模应用加速器专题报道</a></li>
+      <li>腾讯新闻 - <a href="https://new.qq.com/rain/a/20250319A06OQQ00" target="_blank">天使荟"金种子"联创计划</a></li>
+      <li>南方新闻网 - <a href="https://www.nfnews.com/content/0oXXGKaqo9.html" target="_blank">天使荟·千模应用加速器揭牌报道</a></li>
+      <li>新浪新闻 - <a href="https://k.sina.com.cn/article_5787187353_158f17899020024yc6.html" target="_blank">梅林AI硬件创新广场专题报道</a></li>
+      <li>深圳市政府官网 - <a href="https://www.sz.gov.cn/cn/xxgk/zfxxgj/gqdt/content/post_12110189.html" target="_blank">福保街道"彩虹计划"青年人才创业港</a></li>
+      <li>福田区政府官网 - <a href="https://www.szft.gov.cn/ftxx/xwdt/tpxw/content/post_12109387.html" target="_blank">河套深圳园区青年创新创业"彩虹计划"</a></li>
+      <li>南方日报 - <a href="https://epaper.nfnews.com/nfdaily/html/202504/23/content_10133372.html" target="_blank">福田"五福礼包"教育科技人才政策</a></li>
+      <li>咚咚租 - <a href="https://www.dongdongzu.com/building/info2244" target="_blank">新一代信息技术产业园楼盘信息</a></li>
+      <li>深圳写字楼网 - <a href="https://szszw.com.cn/article/zixun/549.html" target="_blank">华强科创广场楼盘信息</a></li>
+    </ol>
+  </div>
+
+  <div class="footer-note">
+    本表格数据整理自各区政府官网及公开媒体报道，仅供参考。具体政策以官方最新公告为准。<br>
+    整理时间：2026年8月10日 | 最后更新：2026年8月10日（新增福田区7个孵化器详细租金信息）<br>
+    数据来源链接共 38 条，均可点击查看原文
+  </div>
+
+</div>
+
+
+</body></html>
