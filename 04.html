@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>孵化器运营对比分析</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #030014;
+  --bg2: #0A0E27;
+  --card-bg: rgba(255,255,255,0.04);
+  --card-border: rgba(255,255,255,0.08);
+  --blue: #2EA7FF;
+  --teal: #14C9B8;
+  --amber: #F0A050;
+  --purple: #9381FF;
+  --text: #ffffff;
+  --text-sub: rgba(255,255,255,0.7);
+  --text-dim: rgba(255,255,255,0.4);
+  --text-body: rgba(255,255,255,0.85);
+  --nav-bg: rgba(10,14,39,0.85);
+  --nav-btn-bg: rgba(255,255,255,0.06);
+  --nav-btn-border: rgba(255,255,255,0.12);
+  --nav-btn-color: #fff;
+  --hint-color: rgba(255,255,255,0.3);
+  --th-bg: rgba(46,167,255,0.1);
+  --td-border: rgba(255,255,255,0.06);
+  --danger: #ff6b6b;
+}
+
+/* Light Theme */
+[data-theme="light"] {
+  --bg: #F7F8FC;
+  --bg2: #E8ECF4;
+  --card-bg: rgba(0,0,0,0.025);
+  --card-border: rgba(0,0,0,0.08);
+  --blue: #1A7FD4;
+  --teal: #0DA896;
+  --amber: #D48830;
+  --purple: #7568D9;
+  --text: #1A1A2E;
+  --text-sub: rgba(26,26,46,0.65);
+  --text-dim: rgba(26,26,46,0.4);
+  --text-body: rgba(26,26,46,0.82);
+  --nav-bg: rgba(255,255,255,0.92);
+  --nav-btn-bg: rgba(0,0,0,0.04);
+  --nav-btn-border: rgba(0,0,0,0.12);
+  --nav-btn-color: #1A1A2E;
+  --hint-color: rgba(0,0,0,0.2);
+  --th-bg: rgba(26,127,212,0.06);
+  --td-border: rgba(0,0,0,0.06);
+  --danger: #D94040;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  overflow: hidden;
+  height: 100vh;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+.slide, .card, .nav-bar, .slide-inner { transition: background 0.4s ease, border-color 0.4s ease; }
+
+#app { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+
+.slide {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px 80px;
+  background: var(--bg);
+  color: var(--text);
+}
+.slide.active { display: flex; }
+
+.slide-inner {
+  width: 1920px; height: 1080px;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(var(--scale, 1));
+  padding: 60px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+/* Navigation */
+.nav-bar {
+  position: fixed; bottom: 20px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; align-items: center; gap: 16px;
+  z-index: 100;
+  background: var(--nav-bg);
+  backdrop-filter: blur(12px);
+  border-radius: 40px;
+  padding: 8px 16px;
+  border: 1px solid var(--nav-btn-border);
+}
+.nav-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid var(--nav-btn-border);
+  background: var(--nav-btn-bg);
+  color: var(--nav-btn-color);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; transition: all 0.2s;
+}
+.nav-btn:hover { background: rgba(20,201,184,0.2); border-color: var(--teal); }
+.nav-counter {
+  color: var(--nav-btn-color); opacity: 0.6;
+  font-size: 15px; font-weight: 500;
+  min-width: 60px; text-align: center;
+}
+.nav-dots { display: flex; gap: 4px; }
+.nav-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--nav-btn-border);
+  cursor: pointer; transition: all 0.2s;
+}
+.nav-dot.active { background: var(--teal); width: 20px; border-radius: 3px; }
+.nav-fullscreen {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid var(--nav-btn-border);
+  background: var(--nav-btn-bg);
+  color: var(--nav-btn-color);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px;
+}
+
+/* Slide elements */
+.section-label { font-size: 24px; font-weight: 600; letter-spacing: 2px; margin-bottom: 12px; }
+.slide-title { font-size: 52px; font-weight: 700; margin-bottom: 16px; line-height: 1.25; }
+.slide-subtitle { font-size: 22px; color: var(--text-sub); margin-bottom: 48px; line-height: 1.5; }
+.accent-line { width: 80px; height: 4px; border-radius: 2px; margin-bottom: 20px; }
+
+.orb {
+  position: absolute; border-radius: 50%;
+  pointer-events: none; filter: blur(120px); opacity: 0.4;
+}
+
+/* Cards */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 24px;
+}
+.card-teal { border-color: rgba(20,201,184,0.2); }
+.card-blue { border-color: rgba(46,167,255,0.2); }
+.card-amber { border-color: rgba(240,160,80,0.2); }
+.card-purple { border-color: rgba(147,129,255,0.2); }
+.card-danger { border-color: rgba(255,107,107,0.2); }
+
+.icon-md { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+.icon-bg-teal { background: rgba(20,201,184,0.12); border: 1px solid rgba(20,201,184,0.25); }
+.icon-bg-blue { background: rgba(46,167,255,0.12); border: 1px solid rgba(46,167,255,0.25); }
+.icon-bg-purple { background: rgba(147,129,255,0.12); border: 1px solid rgba(147,129,255,0.25); }
+.icon-bg-amber { background: rgba(240,160,80,0.12); border: 1px solid rgba(240,160,80,0.25); }
+
+/* Tables */
+.data-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.data-table th {
+  text-align: left; padding: 10px 14px;
+  font-weight: 600; color: var(--text-dim);
+  background: var(--th-bg);
+  border-bottom: 1px solid var(--td-border);
+}
+.data-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--td-border);
+  color: var(--text-body);
+  vertical-align: top;
+}
+.highlight { color: var(--teal); }
+.neg { color: var(--danger); }
+.text-teal { color: var(--teal); }
+.text-blue { color: var(--blue); }
+.text-amber { color: var(--amber); }
+.text-purple { color: var(--purple); }
+.text-danger { color: var(--danger); }
+.text-dim { color: var(--text-dim); }
+.text-sub { color: var(--text-sub); }
+
+/* Big number */
+.stat-number { font-size: 56px; font-weight: 800; line-height: 1.1; }
+.stat-label { font-size: 13px; color: var(--text-dim); letter-spacing: 1px; margin-bottom: 4px; text-transform: uppercase; }
+.stat-sub { font-size: 14px; color: var(--text-sub); margin-top: 6px; }
+
+/* Tag */
+.tag {
+  display: inline-block; padding: 3px 10px;
+  border-radius: 4px; font-size: 12px; font-weight: 600;
+}
+.tag-teal { background: rgba(20,201,184,0.12); color: var(--teal); }
+.tag-blue { background: rgba(46,167,255,0.12); color: var(--blue); }
+.tag-amber { background: rgba(240,160,80,0.12); color: var(--amber); }
+.tag-purple { background: rgba(147,129,255,0.12); color: var(--purple); }
+.tag-danger { background: rgba(255,107,107,0.12); color: var(--danger); }
+
+/* Color classes */
+.c-teal { color: var(--teal); }
+.c-blue { color: var(--blue); }
+.c-amber { color: var(--amber); }
+.c-purple { color: var(--purple); }
+
+/* Grid helpers */
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; width: 100%; }
+
+/* Insight cards */
+.insight-card {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 18px; border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+}
+.insight-num {
+  width: 40px; height: 40px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 700; flex-shrink: 0;
+}
+
+/* Key indicator callout */
+.kpi-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 12px; border-radius: 20px;
+  font-size: 13px; font-weight: 600;
+}
+</style>
+</head>
+<body>
+
+<div id="app">
+
+<!-- ========== SLIDE 1: TITLE ========== -->
+<div class="slide active" data-slide="1">
+<div class="slide-inner" style="background: var(--bg); justify-content:center; align-items:center;">
+  <div class="orb" style="width:700px;height:700px;background:rgba(20,201,184,0.06);top:-150px;right:-150px;"></div>
+  <div class="orb" style="width:500px;height:500px;background:rgba(240,160,80,0.05);bottom:-100px;left:-100px;"></div>
+  <div style="text-align:center;position:relative;z-index:1;">
+    <div style="font-size:18px;color:var(--text-dim);letter-spacing:4px;margin-bottom:24px;">孵化器运营对比分析</div>
+    <h1 style="font-size:72px;font-weight:800;margin-bottom:20px;line-height:1.2;">孵化器运营<br>对比分析</h1>
+    <div class="accent-line" style="background:var(--teal);margin:24px auto;"></div>
+    <p style="font-size:24px;color:var(--text-sub);margin-bottom:12px;">核心聚焦：5,000㎡ – 10,000㎡ 黄金规模</p>
+    <p style="font-size:18px;color:var(--text-dim);">多维验证：公开信源 + 实地调研</p>
+    <div style="display:flex;gap:40px;justify-content:center;margin-top:60px;">
+      <div style="text-align:center;"><span class="tag tag-teal" style="font-size:14px;padding:6px 16px;">深圳</span><div style="font-size:12px;color:var(--text-dim);margin-top:6px;">5,000㎡ 单体规模</div></div>
+      <div style="text-align:center;"><span class="tag tag-blue" style="font-size:14px;padding:6px 16px;">上海</span><div style="font-size:12px;color:var(--text-dim);margin-top:6px;">59,838㎡ 园区化运营</div></div>
+      <div style="text-align:center;"><span class="tag tag-amber" style="font-size:14px;padding:6px 16px;">广州</span><div style="font-size:12px;color:var(--text-dim);margin-top:6px;">5,000㎡ 灵活布局</div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ========== SLIDE 2: 基础运营参数对比 ========== -->
+<div class="slide" data-slide="2">
+<div class="slide-inner" style="background: var(--bg);">
+  <div class="section-label c-teal">01 · 基础运营参数</div>
+  <h2 class="slide-title">基础运营参数对比</h2>
+
+  <div class="grid-3" style="margin-top:24px;">
+
+    <!-- 深圳 -->
+    <div class="card card-teal">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+        <div class="icon-md icon-bg-teal"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="12" y2="17"/></svg></div>
+        <div>
+          <div style="font-weight:700;font-size:16px;color:var(--text);">深圳典型孵化器</div>
+          <div style="font-size:12px;color:var(--teal);">标杆示范</div>
+        </div>
+      </div>
+      <table style="width:100%;font-size:13px;border-collapse:collapse;">
+        <tr style="border-bottom:1px solid rgba(128,128,128,0.08);"><td style="padding:8px 0;color:var(--text-dim);width:45%;">运营面积</td><td style="padding:8px 0;font-weight:600;">5,000 ㎡</td></tr>
+        <tr style="border-bottom:1px solid rgba(128,128,128,0.08);"><td style="padding:8px 0;color:var(--text-dim);">对外租金</td><td style="padding:8px 0;font-weight:600;"><span class="text-teal">50 元/㎡/月</span></td></tr>
+        <tr style="border-bottom:1px solid rgba(128,128,128,0.08);"><td style="padding:8px 0;color:var(--text-dim);">承租成本</td><td style="padding:8px 0;font-weight:600;"><span class="text-teal">30 元/㎡/月</span></td></tr>
+        <tr style="border-bottom:1px solid rgba(128,128,128,0.08);"><td style="padding:8px 0;color:var(--text-dim);">出租率</td><td style="padding:8px 0;">90%（理想状态）</td></tr>
+        <tr style="border-bottom:1px solid rgba(128,128,128,0.08);"><td style="padding:8px 0;color:var(--text-dim);">装修投入</td><td style="padding:8px 0;">1,000 元/㎡</td></tr>
+        <tr><td style="padding:8px 0;color:var(--text-dim);">核心团队</td><td style="padding:8px 0;">5 人精简团队</td></tr>
+      </table>
+      <div style="margin-top:12px;padding:8px 12px;background:rgba(20,201,184,0.06);border-radius:6px;font-size:12px;color:var(--text-sub);">
+        <strong class="text-teal">★ 已更新：</strong>承租成本 30 元/㎡，对外租金 50 元/㎡
+      </div>
+    </div>
+
+    <!-- 上海 -->
+    <div class="card card-blue">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+        <div class="icon-md icon-bg-blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><polygon points="1,6 1,22 8,18 16,22 23,18 23,2 16,6 8,2"/></svg></div>
+        <div>
+          <div style="font-weight:700;font-size:16px;color:var(--text);">招商科创孵化器</div>
+          <div style="font-size:12px;color:var(--blue);">园区化运营</div>
+        </div>
+      </div>
+      <table style="width:100%;font-size:13px;border-collapse:collapse;">
+        <tr style="border-bottom:1px solid rgba(128,128,128,0.08);"><td style="padding:8px 0;color:var(--text-dim);width:45%;">运营面积</td><td style="padding:8px 0;font-weight:600;">59,838 ㎡</td></tr>
+        <tr style="border-bottom:1px solid rgba(128,128,128,0.08);"><td style="padding:8px 0;color:var(--text-dim);">对外租金</td><td style="padding:8px 0;font-weight:600;">82-99 元/㎡/月</td></tr>
+        <tr style="border-bottom:1px solid rgba(128,128,128,0.08);"><td style="padding:8px 0;color:var(--text-dim);">租金折合</td><td style="padding:8px 0;">2.74-3.30 元/㎡/日</td></tr>
+        <tr style="border-bottom:1px solid rgba(128,128,128,0.08);"><td style="padding:8px 0;color:var(--text-dim);">出租率</td><td style="padding:8px 0;">75.13%（整体）</td></tr>
+        <tr style="border-bottom:1px solid rgba(128,128,128,0.08);"><td style="padding:8px 0;color:var(--text-dim);">入驻企业</td><td style="padding:8px 0;">115 家</td></tr>
+        <tr><td style="padding:8px 0;color:var(--text-dim);">模式</td><td style="padding:8px 0;">国资背景 · 重资产</td></tr>
+      </table>
+    </div>
+
+    <!-- 广州 -->
+    <div class="card card-amber">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+        <div class="icon-md icon-bg-amber"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <div>
+          <div style="font-weight:700;font-size:16px;color:var(--text);">广州孵客创业公社</div>
+          <div style="font-size:12px;color:var(--amber);">楼宇改造 · 社群驱动</div>
+        </div>
+      </div>
+      <table style="width:100%;font-size:13px;border-collapse:collapse;">
+        <tr style="border-bottom:1px solid rgba(128,128,128,0.08);"><td style="padding:8px 0;color:var(--text-dim);width:45%;">运营面积</td><td style="padding:8px 0;font-weight:600;">约 5,000 ㎡</td></tr>
+        <tr style="border-bottom:1px solid rgba(128,128,128,0.08);"><td style="padding:8px 0;color:var(--text-dim);">定价模式</td><td style="padding:8px 0;">工位/单间制</td></tr>
+        <tr style="border-bottom:1px solid rgba(128,128,128,0.08);"><td style="padding:8px 0;color:var(--text-dim);">开放工位</td><td style="padding:8px 0;">500 元/位/月</td></tr>
+        <tr style="border-bottom:1px solid rgba(128,128,128,0.08);"><td style="padding:8px 0;color:var(--text-dim);">封闭单间</td><td style="padding:8px 0;">3,000-4,000 元/间</td></tr>
+        <tr style="border-bottom:1px solid rgba(128,128,128,0.08);"><td style="padding:8px 0;color:var(--text-dim);">出租率</td><td style="padding:8px 0;">60%-80%</td></tr>
+        <tr><td style="padding:8px 0;color:var(--text-dim);">模式</td><td style="padding:8px 0;">轻资产 · 低成本启动</td></tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ========== SLIDE 3: 收入结构对比 ========== -->
+<div class="slide" data-slide="3">
+<div class="slide-inner" style="background: var(--bg);">
+  <div class="section-label c-teal">02 · 收入结构</div>
+  <h2 class="slide-title">收入结构对比（年度）</h2>
+
+  <div class="grid-3" style="margin-top:24px;">
+
+    <!-- 深圳 -->
+    <div class="card card-teal" style="position:relative;">
+      <div style="position:absolute;top:16px;right:16px;" class="tag tag-teal">深圳</div>
+      <div class="stat-number text-teal">270<span style="font-size:28px;">万</span></div>
+      <div class="stat-label">年收入（100% 租金）</div>
+      <div style="margin-top:16px;font-size:14px;line-height:1.7;">
+        <table style="width:100%;font-size:13px;">
+          <tr style="border-bottom:1px solid rgba(128,128,128,0.08);"><td style="padding:6px 0;color:var(--text-dim);">场地租金</td><td style="padding:6px 0;text-align:right;font-weight:600;">100%</td></tr>
+          <tr><td style="padding:6px 0;color:var(--text-dim);">增值/其他</td><td style="padding:6px 0;text-align:right;color:var(--text-dim);">0%</td></tr>
+        </table>
+      </div>
+      <div style="margin-top:12px;padding:10px 12px;background:rgba(255,107,107,0.08);border-radius:8px;font-size:13px;color:var(--text-sub);line-height:1.6;">
+        <strong class="text-danger">⚠ 收入结构单一</strong><br>
+        30元/㎡承租成本下表面有租金价差，但单一依赖租金收入仍难覆盖运营成本，抗风险能力弱。
+      </div>
+    </div>
+
+    <!-- 上海 -->
+    <div class="card card-blue" style="position:relative;">
+      <div style="position:absolute;top:16px;right:16px;" class="tag tag-blue">上海</div>
+      <div class="stat-number text-blue">6,530<span style="font-size:28px;">万</span></div>
+      <div class="stat-label">年收入（多元结构）</div>
+      <div style="margin-top:16px;font-size:14px;line-height:1.7;">
+        <table style="width:100%;font-size:13px;">
+          <tr style="border-bottom:1px solid rgba(128,128,128,0.08);"><td style="padding:6px 0;color:var(--text-dim);">场地租金</td><td style="padding:6px 0;text-align:right;font-weight:600;">74.9%</td></tr>
+          <tr style="border-bottom:1px solid rgba(128,128,128,0.08);"><td style="padding:6px 0;color:var(--text-dim);">注册/物业等</td><td style="padding:6px 0;text-align:right;font-weight:600;">25%+</td></tr>
+        </table>
+      </div>
+      <div style="margin-top:12px;padding:10px 12px;background:rgba(46,167,255,0.08);border-radius:8px;font-size:13px;color:var(--text-sub);line-height:1.6;">
+        <strong class="text-blue">✓ 收入模型多元</strong><br>
+        注册地址服务与物业增值服务成为重要利润来源，抗风险能力与盈利稳定性强。
+      </div>
+    </div>
+
+    <!-- 广州 -->
+    <div class="card card-amber" style="position:relative;">
+      <div style="position:absolute;top:16px;right:16px;" class="tag tag-amber">广州</div>
+      <div class="stat-number text-amber">300<span style="font-size:28px;">万</span></div>
+      <div class="stat-label">年收入（运营驱动）</div>
+      <div style="margin-top:16px;font-size:14px;line-height:1.7;">
+        <table style="width:100%;font-size:13px;">
+          <tr style="border-bottom:1px solid rgba(128,128,128,0.08);"><td style="padding:6px 0;color:var(--text-dim);">场地租金</td><td style="padding:6px 0;text-align:right;font-weight:600;">60%</td></tr>
+          <tr style="border-bottom:1px solid rgba(128,128,128,0.08);"><td style="padding:6px 0;color:var(--text-dim);">培训/增值</td><td style="padding:6px 0;text-align:right;font-weight:600;">30%</td></tr>
+          <tr><td style="padding:6px 0;color:var(--text-dim);">其他</td><td style="padding:6px 0;text-align:right;font-weight:600;">10%</td></tr>
+        </table>
+      </div>
+      <div style="margin-top:12px;padding:10px 12px;background:rgba(240,160,80,0.08);border-radius:8px;font-size:13px;color:var(--text-sub);line-height:1.6;">
+        <strong class="text-amber">✓ 社群运营驱动</strong><br>
+        以"社群+培训"为核心，从空间提供者转型为生态服务商，运营效益显著。
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ========== SLIDE 4: 成本结构对比 ========== -->
+<div class="slide" data-slide="4">
+<div class="slide-inner" style="background: var(--bg);">
+  <div class="section-label c-teal">03 · 成本结构</div>
+  <h2 class="slide-title">成本结构对比（年度）</h2>
+
+  <div style="display:flex;gap:24px;width:100%;margin-top:24px;">
+
+    <!-- 深圳 -->
+    <div class="card card-teal" style="flex:1;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+        <div class="icon-md icon-bg-teal"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="6" x2="12" y2="18"/></svg></div>
+        <div>
+          <div style="font-weight:700;font-size:15px;color:var(--text);">深圳典型孵化器</div>
+          <div style="font-size:12px;color:var(--text-dim);">轻资产模式</div>
+        </div>
+      </div>
+      <div class="stat-number text-danger">390<span style="font-size:24px;">万</span></div>
+      <div style="font-size:13px;color:var(--text-dim);margin-bottom:16px;">年度总成本 · 利润 <span class="text-danger">-120万</span></div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="flex:1;height:8px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;">
+            <div style="width:46.2%;height:100%;background:var(--danger);border-radius:4px;"></div>
+          </div>
+          <span style="font-size:12px;color:var(--text-dim);width:50px;">46.2%</span>
+        </div>
+        <div style="font-size:13px;color:var(--text-sub);">● 租金支出：180万(46.2%)<br>● 装修折旧：100万(25.6%)<br>● 人工成本：60万(15.4%)<br>● 其他运营：50万(12.8%)</div>
+      </div>
+      <div style="margin-top:16px;padding:10px 12px;background:rgba(255,107,107,0.08);border-radius:8px;font-size:13px;color:var(--text-sub);line-height:1.6;">
+        <strong class="text-danger">⚠ 承租成本30元仍存年亏损</strong><br>租金价差20元/㎡有正毛利空间，但年内仍-120万，需增值服务+补贴双轮驱动才能盈利。
+      </div>
+    </div>
+
+    <!-- 上海 -->
+    <div class="card card-blue" style="flex:1;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+        <div class="icon-md icon-bg-blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="6" x2="12" y2="18"/></svg></div>
+        <div>
+          <div style="font-weight:700;font-size:15px;color:var(--text);">招商科创孵化器</div>
+          <div style="font-size:12px;color:var(--text-dim);">重资产模式</div>
+        </div>
+      </div>
+      <div class="stat-number text-blue">3,855<span style="font-size:24px;">万</span></div>
+      <div style="font-size:13px;color:var(--text-dim);margin-bottom:16px;">年度总成本</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="flex:1;height:8px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;">
+            <div style="width:63.9%;height:100%;background:var(--blue);border-radius:4px;"></div>
+          </div>
+          <span style="font-size:12px;color:var(--text-dim);width:50px;">63.9%</span>
+        </div>
+        <div style="font-size:13px;color:var(--text-sub);">● 折旧摊销：2,465万(63.9%)<br>● 物业管理：593万(15.4%)<br>● 税金附加：535万(13.9%)<br>● 运营管理：198万(5.1%)</div>
+      </div>
+      <div style="margin-top:16px;padding:10px 12px;background:rgba(46,167,255,0.08);border-radius:8px;font-size:13px;color:var(--text-sub);line-height:1.6;">
+        <strong class="text-blue">重资产自持模式</strong><br>折旧占比超六成，成本刚性强，但享有资产增值红利，长期收益更具优势。
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ========== SLIDE 5: 政府补贴与盈利关键 ========== -->
+<div class="slide" data-slide="5">
+<div class="slide-inner" style="background: var(--bg);">
+  <div class="section-label c-teal">04 · 政府补贴与盈利关键</div>
+  <h2 class="slide-title">政府补贴与盈利关键</h2>
+
+  <div class="grid-3" style="margin-top:24px;">
+
+    <!-- 深圳 -->
+    <div class="card card-teal" style="text-align:center;padding:32px 24px;">
+      <div class="icon-md icon-bg-teal" style="margin:0 auto 16px;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8.5 10h3.5a2 2 0 110 4h-1a2 2 0 110-4"/></svg>
+      </div>
+      <div style="font-size:48px;font-weight:800;color:var(--teal);">100<span style="font-size:24px;">万+</span></div>
+      <div style="font-size:12px;color:var(--text-dim);margin:6px 0;">年度政府专项补贴</div>
+      <div style="font-size:13px;color:var(--text-sub);line-height:1.6;margin-top:12px;">
+        核心依赖补贴维持运营现金流。30元承租成本下仍存价差，但补贴仍是盈亏翻转的关键变量。
+      </div>
+      <div style="margin-top:14px;padding:8px 12px;background:rgba(255,107,107,0.08);border-radius:6px;font-size:12px;color:var(--text-sub);">
+        <strong class="text-danger">关键思考：</strong>补贴退坡后能否独立造血？
+      </div>
+    </div>
+
+    <!-- 上海 -->
+    <div class="card card-blue" style="text-align:center;padding:32px 24px;">
+      <div class="icon-md icon-bg-blue" style="margin:0 auto 16px;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><polyline points="23,6 13.5,15.5 8.5,10.5 1,18"/><polyline points="17,6 23,6 23,12"/></svg>
+      </div>
+      <div style="font-size:48px;font-weight:800;color:var(--blue);">REITs<span style="font-size:18px;">上市</span></div>
+      <div style="font-size:12px;color:var(--text-dim);margin:6px 0;">公募REITs 融资</div>
+      <div style="font-size:13px;color:var(--text-sub);line-height:1.6;margin-top:12px;">
+        依托国资背景与技术交易平台资源，通过资本市场REITs融资拓宽资金渠道，盘活资产价值。
+      </div>
+      <div style="margin-top:14px;padding:8px 12px;background:rgba(46,167,255,0.08);border-radius:6px;font-size:12px;color:var(--text-sub);">
+        <strong class="text-blue">核心优势：</strong>多元收入+资本运作，模式稳健。
+      </div>
+    </div>
+
+    <!-- 广州 -->
+    <div class="card card-amber" style="text-align:center;padding:32px 24px;">
+      <div class="icon-md icon-bg-amber" style="margin:0 auto 16px;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="6" x2="12" y2="18"/><path d="M8.5 10h3.5a2 2 0 110 4h-1a2 2 0 110-4"/></svg>
+      </div>
+      <div style="font-size:48px;font-weight:800;color:var(--amber);">30<span style="font-size:24px;">万</span></div>
+      <div style="font-size:12px;color:var(--text-dim);margin:6px 0;">年度补贴（封顶）</div>
+      <div style="font-size:13px;color:var(--text-sub);line-height:1.6;margin-top:12px;">
+        补贴额度有限，靠精细化的场地运营、培训及增值服务实现基础营收，商业化能力突出。
+      </div>
+      <div style="margin-top:14px;padding:8px 12px;background:rgba(240,160,80,0.08);border-radius:6px;font-size:12px;color:var(--text-sub);">
+        <strong class="text-amber">运营亮点：</strong>低补贴下盈亏平衡，强运营能力。
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:24px;padding:16px 20px;background:rgba(20,201,184,0.06);border-left:3px solid var(--teal);border-radius:0 8px 8px 0;width:100%;font-size:14px;color:var(--text-sub);line-height:1.7;">
+    <strong class="text-teal">行业洞察：</strong>单纯依赖政府补贴难以支撑长久发展。构建"租金收益+增值服务+资本红利"的多元收入结构，沉淀核心运营能力与产业资源，才是实现可持续盈利的根本路径。
+  </div>
+</div>
+</div>
+
+<!-- ========== SLIDE 6: 经营理念与服务模式 ========== -->
+<div class="slide" data-slide="6">
+<div class="slide-inner" style="background: var(--bg);">
+  <div class="section-label c-teal">05 · 经营理念</div>
+  <h2 class="slide-title">经营理念与服务模式</h2>
+
+  <div class="grid-3" style="margin-top:24px;">
+
+    <!-- 深圳 -->
+    <div class="card card-teal" style="display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+        <div class="icon-md icon-bg-teal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/></svg></div>
+        <span style="font-weight:700;font-size:15px;color:var(--text);">深圳 · 二房东+基础孵化</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-sub);line-height:1.6;margin-bottom:12px;">
+        <strong class="text-teal">▍核心定位</strong> 聚焦"二房东+基础孵化"的轻资产运营，以空间运营为核心载体，是行业基础形态。
+      </div>
+      <div style="font-size:12px;color:var(--text-sub);line-height:1.5;">
+        ▸ 灵活工位与办公空间租赁<br>
+        ▸ 工商注册、财税代理配套<br>
+        ▸ 基础行政一站式商务服务<br>
+        ▸ 以物业租金差为核心盈利
+      </div>
+    </div>
+
+    <!-- 上海 -->
+    <div class="card card-blue" style="display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+        <div class="icon-md icon-bg-blue"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></div>
+        <span style="font-weight:700;font-size:15px;color:var(--text);">上海 · 全链条科创服务</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-sub);line-height:1.6;margin-bottom:12px;">
+        <strong class="text-blue">▍核心定位</strong> 打造"全链条科技创新服务"生态，覆盖从创意萌生、技术验证到产业化落地的全生命周期。
+      </div>
+      <div style="font-size:12px;color:var(--text-sub);line-height:1.5;">
+        ▸ 创意试制 & 概念验证<br>
+        ▸ 创业导师 & 科技金融对接<br>
+        ▸ 投融资撮合 & 技术成果交易<br>
+        ▸ 产学研深度合作资源
+      </div>
+    </div>
+
+    <!-- 广州 -->
+    <div class="card card-amber" style="display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+        <div class="icon-md icon-bg-amber"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/></svg></div>
+        <span style="font-weight:700;font-size:15px;color:var(--text);">广州 · 大学生创业扶持+社群</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-sub);line-height:1.6;margin-bottom:12px;">
+        <strong class="text-amber">▍核心定位</strong> 深耕"大学生创业扶持+强社群运营"赛道，打造低成本、高粘性的青年创业成长共同体。
+      </div>
+      <div style="font-size:12px;color:var(--text-sub);line-height:1.5;">
+        ▸ 最长15个月免费工位<br>
+        ▸ 系统化创业培训体系<br>
+        ▸ 主题社群活动 & 种子轮投资<br>
+        ▸ 上下游资源对接
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ========== SLIDE 7: 关键洞察与方案设计启示 ========== -->
+<div class="slide" data-slide="7">
+<div class="slide-inner" style="background: var(--bg);">
+  <div class="section-label c-teal">06 · 关键洞察</div>
+  <h2 class="slide-title">关键洞察与方案设计启示</h2>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;margin-top:20px;">
+
+    <div class="insight-card">
+      <div class="insight-num icon-bg-teal" style="color:var(--teal);">01</div>
+      <div>
+        <div style="font-weight:700;font-size:16px;color:var(--text);margin-bottom:4px;">租金价差定利润</div>
+        <div style="font-size:13px;color:var(--text-sub);line-height:1.5;">承租成本 30元/㎡，对外 50元/㎡，价差20元有利可图但远不足以覆盖折旧与人工，需增值服务补缺口。</div>
+      </div>
+    </div>
+
+    <div class="insight-card">
+      <div class="insight-num icon-bg-teal" style="color:var(--teal);">02</div>
+      <div>
+        <div style="font-weight:700;font-size:16px;color:var(--text);margin-bottom:4px;">75% 是盈亏生死线</div>
+        <div style="font-size:13px;color:var(--text-sub);line-height:1.5;">出租率低于 75% 大概率亏损，75%-90% 为健康区间，需精准招商与优质服务维持。</div>
+      </div>
+    </div>
+
+    <div class="insight-card">
+      <div class="insight-num icon-bg-teal" style="color:var(--teal);">03</div>
+      <div>
+        <div style="font-weight:700;font-size:16px;color:var(--text);margin-bottom:4px;">增值服务破瓶颈</div>
+        <div style="font-size:13px;color:var(--text-sub);line-height:1.5;">纯租金模式在 30 元承租下仍有亏损，投融资、咨询、活动等增值服务是收入拓宽关键。</div>
+      </div>
+    </div>
+
+    <div class="insight-card">
+      <div class="insight-num icon-bg-teal" style="color:var(--teal);">04</div>
+      <div>
+        <div style="font-weight:700;font-size:16px;color:var(--text);margin-bottom:4px;">轻资产降运营风险</div>
+        <div style="font-size:13px;color:var(--text-sub);line-height:1.5;">重装修折旧占成本 60%+，业主租金为最大支出项，早期采用轻资产更利于风险控制。</div>
+      </div>
+    </div>
+
+    <div class="insight-card">
+      <div class="insight-num icon-bg-teal" style="color:var(--teal);">05</div>
+      <div>
+        <div style="font-weight:700;font-size:16px;color:var(--text);margin-bottom:4px;">补贴是启动燃料</div>
+        <div style="font-size:13px;color:var(--text-sub);line-height:1.5;">年补贴 30-100 万可缓解初期压力，但仅为过渡，需借此窗口期快速沉淀核心运营能力。</div>
+      </div>
+    </div>
+
+    <div class="insight-card">
+      <div class="insight-num icon-bg-teal" style="color:var(--teal);">06</div>
+      <div>
+        <div style="font-weight:700;font-size:16px;color:var(--text);margin-bottom:4px;">5 人极简核心团队</div>
+        <div style="font-size:13px;color:var(--text-sub);line-height:1.5;">5000㎡ 级孵化器标配 5 人（管理+招商+物业+服务），年人力成本约 60 万，高效精简。</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:20px;padding:14px 20px;background:rgba(20,201,184,0.06);border-radius:8px;width:100%;font-size:13px;color:var(--text-sub);line-height:1.6;">
+    <strong class="text-teal">方案启示：</strong>承租成本降至 30元/㎡ 后，年亏损从 -240万 收窄至 -120万，说明租金价差是利润的核心来源。但仅靠价差仍不够——建议方案设计中强化增值服务收入结构（FA+培训+众筹）、争取多元补贴渠道、以轻资产团队启动运营，出租率 75% 以上时将实现更健康的财务表现。
+  </div>
+</div>
+</div>
+
+<!-- ========== SLIDE 8: 数据来源 ========== -->
+<div class="slide" data-slide="8">
+<div class="slide-inner" style="background: var(--bg); justify-content:center; align-items:center;">
+  <div class="orb" style="width:600px;height:600px;background:rgba(20,201,184,0.05);bottom:-200px;right:-150px;"></div>
+  <div style="text-align:center;position:relative;z-index:1;">
+    <div class="section-label c-teal" style="text-align:center;">数据来源与参考资料</div>
+
+    <div class="grid-3" style="margin-top:40px;max-width:1400px;">
+
+      <div class="card card-teal" style="text-align:center;padding:32px 24px;">
+        <div class="icon-md icon-bg-teal" style="margin:0 auto 16px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div style="font-weight:700;font-size:15px;color:var(--text);margin-bottom:12px;">权威媒体深度报道</div>
+        <div style="font-size:13px;color:var(--text-sub);line-height:1.6;">
+          引用 36氪《孵化器，正沦为"二房东"》专题报道，深度解析深圳典型孵化器的财务模型与运营痛点。
+        </div>
+      </div>
+
+      <div class="card card-blue" style="text-align:center;padding:32px 24px;">
+        <div class="icon-md icon-bg-blue" style="margin:0 auto 16px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+        </div>
+        <div style="font-weight:700;font-size:15px;color:var(--text);margin-bottom:12px;">官方披露运营档案</div>
+        <div style="font-size:13px;color:var(--text-sub);line-height:1.6;">
+          基于招商科创孵化器 REITs 招募说明书及 2025 年度报告，提取上海杨浦园区真实运营数据。
+        </div>
+      </div>
+
+      <div class="card card-amber" style="text-align:center;padding:32px 24px;">
+        <div class="icon-md icon-bg-amber" style="margin:0 auto 16px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <div style="font-weight:700;font-size:15px;color:var(--text);margin-bottom:12px;">一线实地调研实录</div>
+        <div style="font-size:13px;color:var(--text-sub);line-height:1.6;">
+          参考南方都市报《广州孵化器实地调研》，深入广州孵客创业公社等标杆项目一线。
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:40px;font-size:13px;color:var(--text-dim);text-align:center;">
+      所有数据均源自公开渠道与权威信源 · 深圳承租成本按 30 元/㎡ 更新测算<br>
+      客观反映行业发展现状与趋势，为方案设计提供真实可靠的决策参考
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Navigation -->
+<div class="nav-bar">
+  <button class="nav-btn" id="prevBtn">←</button>
+  <div class="nav-dots" id="navDots"></div>
+  <div class="nav-counter" id="counter">1 / 8</div>
+  <button class="nav-btn" id="nextBtn">→</button>
+  <button class="nav-fullscreen" id="themeBtn" title="切换明亮/暗黑模式" style="font-size:16px;">☀</button>
+  <button class="nav-fullscreen" id="fullscreenBtn">⛶</button>
+</div>
+
+</div>
+
+<script>
+(function() {
+  const app = document.getElementById('app');
+  const slides = app.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+
+  // Dots
+  const dotsContainer = document.getElementById('navDots');
+  for (let i = 0; i < total; i++) {
+    const dot = document.createElement('span');
+    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    dotsContainer.appendChild(dot);
+  }
+  const dots = dotsContainer.querySelectorAll('.nav-dot');
+
+  function goTo(i) {
+    if (i < 0 || i >= total) return;
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = i;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+    document.getElementById('counter').textContent = `${current + 1} / ${total}`;
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+  document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+
+  // Keyboard
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') goTo(current - 1);
+    if (e.key === 'ArrowRight') goTo(current + 1);
+  });
+
+  // Touch swipe
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+  document.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (dx > 50) goTo(current - 1);
+    if (dx < -50) goTo(current + 1);
+  });
+
+  // Fullscreen
+  document.getElementById('fullscreenBtn').addEventListener('click', () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      document.documentElement.requestFullscreen();
+    }
+  });
+
+  // Theme toggle
+  const themeBtn = document.getElementById('themeBtn');
+  const html = document.documentElement;
+  let isDark = true;
+  themeBtn.addEventListener('click', () => {
+    isDark = !isDark;
+    if (isDark) {
+      html.removeAttribute('data-theme');
+      themeBtn.textContent = '☀';
+    } else {
+      html.setAttribute('data-theme', 'light');
+      themeBtn.textContent = '🌙';
+    }
+  });
+
+  // Scale slides
+  function scaleSlide(inner) {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const scaleX = vw / 1920;
+    const scaleY = vh / 1080;
+    const scale = Math.min(scaleX, scaleY);
+    inner.style.setProperty('--scale', scale);
+  }
+
+  document.querySelectorAll('.slide-inner').forEach(scaleSlide);
+  window.addEventListener('resize', () => {
+    document.querySelectorAll('.slide-inner').forEach(scaleSlide);
+  });
+})();
+</script>
+
+</body>
+</html>
